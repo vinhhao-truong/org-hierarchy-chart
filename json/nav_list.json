@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Home",
+    "pathname": "/home"
+  },
+  {
+    "title": "About Us",
+    "pathname": "/about-us"
+  },
+  {
+    "title": "Services",
+    "pathname": "/services"
+  },
+  {
+    "title": "Contact Us",
+    "pathname": "/contact-us"
+  },
+  {
+    "title": "Blog",
+    "pathname": "/blog"
+  }
+]
