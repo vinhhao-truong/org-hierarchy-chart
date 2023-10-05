@@ -1,11 +1,11 @@
-import "./globals.scss";
+import "@/styles/globals.scss";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navigation from "@/component/layout/Navigation";
 import Body from "@/component/layout/Body";
 import Footer from "@/component/layout/Footer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Layout from "@/component/layout/Layout";
+import GeneralLayout from "@/component/layout/GeneralLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Layout>{children}</Layout>
+        {/* <GeneralLayout/> to separate SSR and the client for some libraries usage */}
+        <GeneralLayout>{children}</GeneralLayout>
       </body>
     </html>
   );

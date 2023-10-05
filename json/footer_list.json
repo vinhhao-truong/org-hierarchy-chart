@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Privacy Policy",
+    "pathname": "/privacy-policy"
+  },
+  {
+    "title": "Terms of Service",
+    "pathname": "/terms-of-service"
+  },
+  {
+    "title": "Careers",
+    "pathname": "/careers"
+  },
+  {
+    "title": "FAQ",
+    "pathname": "/faq"
+  }
+]

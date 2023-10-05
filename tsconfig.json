@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/send-msg", "component/layout/Layout/index.tss"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/send-msg", "component/layout/GeneralLayout/index.tss"],
   "exclude": ["node_modules"]
 }

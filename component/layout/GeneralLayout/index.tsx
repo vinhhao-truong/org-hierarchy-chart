@@ -6,19 +6,26 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import Navigation from "../Navigation";
 import Body from "../Body";
 import Footer from "../Footer";
+import { Provider } from "react-redux";
+import store from "@/redux/store";
 
-const theme = createTheme({});
+const theme = createTheme({
+  palette: {},
+  typography: {
+    fontFamily: `"Montserrat", "Roboto", "Helvetica", "Arial", sans-serif`,
+  },
+});
 
-const Layout: React.FC<ReactProps> = ({ children }) => {
+const GeneralLayout: React.FC<ReactProps> = ({ children }) => {
   return (
-    <>
+    <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Navigation />
         <Body>{children}</Body>
         <Footer />
       </ThemeProvider>
-    </>
+    </Provider>
   );
 };
 
-export default Layout;
+export default GeneralLayout;

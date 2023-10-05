@@ -12,6 +12,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    BASE_API: "https://651e632a44a3a8aa47683e55.mockapi.io",
+  },
 };
 
 module.exports = nextConfig;
