@@ -43,10 +43,10 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
           position: "absolute",
         }}
       />
-      {rowList.map((member, idx) => {
+      {rowList.map((employee, idx) => {
         return (
-          <Grid xs={12} sm={6} lg="auto" item key={`member-${member.id}`}>
-            <ChartItem member={member} />
+          <Grid xs={12} sm={6} lg="auto" item key={`employee-${employee.id}`}>
+            <ChartItem employee={employee} />
           </Grid>
         );
       })}

@@ -23,6 +23,7 @@ const HeroSection = () => {
         fill
         style={{ objectFit: "cover" }}
         loading="eager"
+        priority
       />
       {/* HERO MASK */}
       <Box

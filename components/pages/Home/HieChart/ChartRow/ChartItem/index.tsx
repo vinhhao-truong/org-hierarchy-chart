@@ -3,11 +3,17 @@
 import OrgStructure from "@/interfaces/OrgStructure";
 import ReactProps from "@/interfaces/ReactProps";
 import getLvlColor from "@/utils/get/getLvlColor";
-import { flex } from "@/utils/get/getSxMUI";
-import { Avatar, Box, Typography, useTheme } from "@mui/material";
-import { green, red, yellow } from "@mui/material/colors";
-import Image from "next/image";
-import React from "react";
+import { flex, rotateAnimation, zoomAnimation } from "@/utils/get/getSxMUI";
+import {
+  Avatar,
+  Box,
+  Collapse,
+  Link,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
+import AddIcon from "@mui/icons-material/AddRounded";
 
 const ItemContainer: React.FC<ReactProps> = ({ children, id }) => {
   const theme = useTheme();
@@ -34,15 +40,18 @@ const ItemContainer: React.FC<ReactProps> = ({ children, id }) => {
 };
 
 interface ChartItemProps extends ReactProps {
-  member: OrgStructure;
+  employee: OrgStructure;
 }
-const ChartItem: React.FC<ChartItemProps> = ({ member }) => {
+const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
   return (
-    <ItemContainer id={`member-${member.id}`}>
+    <ItemContainer id={`employee-${employee.id}`}>
+      {/* AVATAR */}
       <Avatar
         sx={{ width: 48, height: 48, mb: 1 }}
-        src={member.avatar}
-        alt={`${member.fullName}'s avatar`}
+        src={employee.avatar}
+        alt={`${employee.fullName}'s avatar`}
       />
       {/* FLAG */}
       <Box
@@ -52,23 +61,43 @@ const ChartItem: React.FC<ChartItemProps> = ({ member }) => {
           right: 0,
           p: 0.2,
           px: 0.5,
-          backgroundColor: getLvlColor(member.level),
+          backgroundColor: getLvlColor(employee.level),
         }}
       >
         <Typography
           component="h2"
           sx={{ fontSize: "13px", color: "white", fontWeight: 500 }}
         >
-          {member.position}
+          {employee.position}
         </Typography>
       </Box>
+      {/* NAME */}
       <Typography
         variant="h6"
         component="h2"
-        sx={{ whiteSpace: "nowrap", fontWeight: 500 }}
+        sx={{
+          whiteSpace: "nowrap",
+          fontWeight: 500,
+          textAlign: "center",
+          mb: 2,
+        }}
       >
-        {member.fullName}
+        {employee.fullName}
       </Typography>
+      <Box sx={{ ...flex() }}>
+        <div
+          onClick={() => {
+            setIsExpanded((prev) => !prev);
+          }}
+        >
+          <AddIcon fontSize="medium" />
+        </div>
+      </Box>
+      <Collapse in={isExpanded}>
+        <Typography variant="subtitle1">
+          &ldquo;{employee.introduction}&rdquo;
+        </Typography>
+      </Collapse>
     </ItemContainer>
   );
 };

@@ -7,12 +7,12 @@ import React from "react";
 import { v4 } from "uuid";
 
 const SearchBar = () => {
-  const { data: memberList } = useGetOrgStructureQuery();
+  const { data: employeeList } = useGetOrgStructureQuery();
   const router = useRouter();
 
   return (
     <Autocomplete
-      options={memberList || []}
+      options={employeeList || []}
       renderInput={(params) => <TextField {...params} label="Search" />}
       renderOption={(props, option) => {
         return (
@@ -20,7 +20,7 @@ const SearchBar = () => {
             {...props}
             key={v4()}
             onClick={() => {
-              router.push(`/#member-${option.id}`, {
+              router.push(`/#employee-${option.id}`, {
                 scroll: true,
               });
             }}

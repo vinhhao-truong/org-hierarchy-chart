@@ -6,11 +6,11 @@ import React from "react";
 import ChartRow from "./ChartRow";
 
 const HieChart = () => {
-  const { data: memberList } = useGetOrgStructureQuery();
+  const { data: employeeList } = useGetOrgStructureQuery();
 
-  const topLevel = memberList?.filter(({ level }) => level === 1);
-  const midLevel = memberList?.filter(({ level }) => level === 2);
-  const lowerLevel = memberList?.filter(({ level }) => level === 3);
+  const topLevel = employeeList?.filter(({ level }) => level === 1);
+  const midLevel = employeeList?.filter(({ level }) => level === 2);
+  const lowerLevel = employeeList?.filter(({ level }) => level === 3);
 
   return (
     <Stack gap={16}>

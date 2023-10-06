@@ -1,13 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import orgStructureSlice from "./orgStructureSlice";
 import { api } from "./services/api";
 
 const makeStore = () =>
   configureStore({
     reducer: {
       [api.reducerPath]: api.reducer,
-      orgStructure: orgStructureSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().concat(api.middleware);
