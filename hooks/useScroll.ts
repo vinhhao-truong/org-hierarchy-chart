@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const useScroll = (scrollUpEvent?: Function, scrollDownEvent?: Function) => {
-  const [y, setY] = useState(window.scrollY);
+  const [y, setY] = useState(0);
 
   const handleScroll: EventListenerOrEventListenerObject = (e) => {
     if (y > window.scrollY) {
@@ -19,12 +19,14 @@ const useScroll = (scrollUpEvent?: Function, scrollDownEvent?: Function) => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    if (window !== undefined) {
+      window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      // return a cleanup function to unregister our function since it will run multiple times
-      window.removeEventListener("scroll", handleScroll);
-    };
+      return () => {
+        // return a cleanup function to unregister our function since it will run multiple times
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, [y]);
 };
 
