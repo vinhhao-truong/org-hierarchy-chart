@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Get rid of all path restriction for Next Image
     remotePatterns: [
       {
         protocol: "https",

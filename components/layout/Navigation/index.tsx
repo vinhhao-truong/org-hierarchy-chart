@@ -5,24 +5,32 @@ import Link from "next/link";
 import DesktopMenu from "./DesktopMenu";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
+import { flex } from "@/utils/get/getSxMUI";
 
 const Navigation = () => {
   const theme = useTheme();
 
   return (
-    <Container
-      maxWidth="lg"
+    <Box
       sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        py: "0.5rem",
+        boxShadow: 3,
+        position: "sticky",
+        top: "0",
+        backgroundColor: "white",
       }}
     >
-      <Logo />
-      <DesktopMenu />
-      <MobileMenu />
-    </Container>
+      <Container
+        maxWidth="xl"
+        sx={{
+          ...flex("row", "space-between"),
+          py: "0.5rem",
+        }}
+      >
+        <Logo />
+        <DesktopMenu />
+        <MobileMenu />
+      </Container>
+    </Box>
   );
 };
 

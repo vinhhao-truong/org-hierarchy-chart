@@ -5,18 +5,18 @@ import moment from "moment";
 import React from "react";
 import footerList from "@/json/footer_list.json";
 import Link from "next/link";
+import { flex } from "@/utils/get/getSxMUI";
 
 const Footer = () => {
   const theme = useTheme();
 
   return (
     <Container
-      maxWidth="lg"
+      maxWidth="xl"
       sx={{
-        mt: "10rem",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
+        mt: "8rem",
+        mb: "2rem",
+        ...flex("col", "space-between"),
         alignItems: "center",
         gap: "4rem",
       }}
