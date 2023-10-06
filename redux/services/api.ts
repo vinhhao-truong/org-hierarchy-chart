@@ -1,6 +1,7 @@
 import OrgStructure from "@/interfaces/OrgStructure";
 import Position from "@/interfaces/Position";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { HYDRATE } from "next-redux-wrapper";
 
 export const api = createApi({
   reducerPath: "base",
@@ -14,7 +15,16 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.BASE_API}/`,
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   tagTypes: ["orgStructure"],
 });
 
-export const { useGetOrgStructureQuery } = api;
+export const {
+  useGetOrgStructureQuery,
+  util: { getRunningQueriesThunk },
+} = api;
+export const { getOrgStructure } = api.endpoints;

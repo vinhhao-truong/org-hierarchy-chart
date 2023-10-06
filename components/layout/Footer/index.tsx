@@ -17,7 +17,6 @@ const Footer = () => {
         mt: "8rem",
         mb: "2rem",
         ...flex("col", "space-between"),
-        alignItems: "center",
         gap: "4rem",
       }}
     >
@@ -26,9 +25,7 @@ const Footer = () => {
           return (
             <Grid
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                ...flex(),
                 [theme.breakpoints.only("xs")]: {
                   fontSize: "12px",
                 },

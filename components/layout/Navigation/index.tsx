@@ -14,9 +14,11 @@ const Navigation = () => {
     <Box
       sx={{
         boxShadow: 3,
-        position: "sticky",
+        position: "fixed",
         top: "0",
         backgroundColor: "white",
+        zIndex: 1000,
+        width: "100%",
       }}
     >
       <Container

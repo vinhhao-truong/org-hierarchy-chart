@@ -8,6 +8,7 @@ import Body from "../Body";
 import Footer from "../Footer";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
+import { red } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {},

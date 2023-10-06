@@ -7,6 +7,9 @@ interface OrgStructure {
   avatar: string;
   position: Position;
   introduction: string;
+  level: number;
+  subordinates: string[];
+  supervisors: string[];
 }
 
 export default OrgStructure;
