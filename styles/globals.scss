@@ -8,3 +8,7 @@ html {
 body {
   position: relative !important;
 }
+
+.no-scrolling {
+  overflow-y: hidden !important;
+}

@@ -18,7 +18,7 @@ const HeroSection = () => {
     >
       {/* BG IMG */}
       <Image
-        src="https://images.pexels.com/photos/10679171/pexels-photo-10679171.jpeg?auto=compress&cs=tinysrgb&w=4000&h=2667&dpr=1"
+        src="https://images.pexels.com/photos/210705/pexels-photo-210705.jpeg?auto=compress&cs=tinysrgb&w=6000&h=3772&dpr=1"
         alt="hero-bg"
         fill
         style={{ objectFit: "cover" }}

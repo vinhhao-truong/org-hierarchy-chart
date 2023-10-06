@@ -14,14 +14,23 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/AddRounded";
+import { useParams, usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { selectApp } from "@/redux/services/appSlice";
 
-const ItemContainer: React.FC<ReactProps> = ({ children, id }) => {
+const ItemContainer: React.FC<{ isHighlighted: boolean } & ReactProps> = ({
+  children,
+  id,
+  isHighlighted,
+}) => {
   const theme = useTheme();
+
   return (
     <div style={{ padding: "1rem 0rem" }} id={id}>
       <Box
         sx={{
           ...flex("col", "flex-start", "center"),
+          zIndex: isHighlighted ? 1001 : 0,
           boxShadow: 2,
           borderRadius: 2,
           position: "relative",
@@ -43,10 +52,13 @@ interface ChartItemProps extends ReactProps {
   employee: OrgStructure;
 }
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
+  const { highlightedEmployee } = useSelector(selectApp);
+  const isHighlighted = highlightedEmployee === employee.fullName;
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
-    <ItemContainer id={`employee-${employee.id}`}>
+    <ItemContainer isHighlighted={isHighlighted} id={`employee-${employee.id}`}>
       {/* AVATAR */}
       <Avatar
         sx={{ width: 48, height: 48, mb: 1 }}
