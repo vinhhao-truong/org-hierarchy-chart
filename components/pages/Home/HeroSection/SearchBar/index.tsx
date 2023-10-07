@@ -2,15 +2,14 @@
 
 import Employee from "@/interfaces/OrgStructure";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
-import { selectEmployee, onMask, selectApp } from "@/redux/services/appSlice";
-import { Autocomplete, Paper, TextField } from "@mui/material";
+import { selectEmployee, selectApp } from "@/redux/services/appSlice";
+import { Autocomplete, Box, createFilterOptions } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 
 const SearchBar = () => {
   const { data: employeeList } = useGetOrgStructureQuery();
-  const { selectedEmployee } = useSelector(selectApp);
 
   const dispatch = useDispatch();
 
@@ -19,31 +18,45 @@ const SearchBar = () => {
       options={employeeList || []}
       renderInput={(params) => {
         return (
-          <Paper
-            style={{
-              backgroundColor: "white",
-            }}
-            ref={params.InputProps.ref}
-          >
-            <input type="text" {...params.inputProps} />
-          </Paper>
+          <Box ref={params.InputProps.ref}>
+            <input
+              type="text"
+              {...params.inputProps}
+              style={{
+                width: "300px",
+                padding: "1rem 1.5rem",
+                borderRadius: "28px",
+                backgroundColor: "white",
+                border: "none",
+                fontSize: "16px",
+                outline: "none",
+              }}
+            />
+          </Box>
         );
       }}
       renderOption={(props, option) => {
         return (
-          <li
-            {...props}
-            key={v4()}
-            onClick={() => {
-              dispatch(selectEmployee(option.fullName));
-            }}
-          >
+          <li {...props} key={v4()}>
             {option.fullName}
           </li>
         );
       }}
       getOptionLabel={(option) => option.fullName}
+      onInputChange={(_, value) => {
+        const thisEmployee = employeeList?.find(
+          ({ fullName }) => value.toLowerCase() === fullName.toLowerCase()
+        );
+
+        if (!!thisEmployee) {
+          dispatch(selectEmployee(thisEmployee.id));
+        }
+      }}
       sx={{ position: "relative" }}
+      clearOnEscape
+      includeInputInList
+      groupBy={(option) => option.position}
+      autoSelect
     />
   );
 };

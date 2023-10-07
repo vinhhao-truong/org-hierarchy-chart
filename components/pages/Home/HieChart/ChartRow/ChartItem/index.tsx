@@ -3,22 +3,13 @@
 import Employee from "@/interfaces/OrgStructure";
 import ReactProps from "@/interfaces/ReactProps";
 import getLvlColor from "@/utils/get/getLvlColor";
-import { flex, rotateAnimation, zoomAnimation } from "@/utils/get/getSxMUI";
-import {
-  Box,
-  Collapse,
-  Typography,
-  Avatar as MuiAvatar,
-  Zoom,
-  Fade,
-} from "@mui/material";
+import { flex } from "@/utils/get/getSxMUI";
+import { Box, Collapse, Typography, Avatar as MuiAvatar } from "@mui/material";
 import React, { useState } from "react";
 import CollapseIcon from "@mui/icons-material/ExpandLessRounded";
 import ExpandIcon from "@mui/icons-material/ExpandMoreRounded";
-
 import { useDispatch, useSelector } from "react-redux";
 import { selectEmployee, resetApp, selectApp } from "@/redux/services/appSlice";
-import toHyphenedStr from "@/utils/format/toHyphenedStr";
 import ItemContainer from "./ItemContainer";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import Avatar from "@/interfaces/Avatar";
@@ -29,41 +20,33 @@ interface ChartItemProps extends ReactProps {
 }
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
   const { selectedEmployee } = useSelector(selectApp);
-  const isSelected = selectedEmployee === employee.fullName;
+  const isSelected = selectedEmployee === employee.id;
 
   const { data: employeeList } = useGetOrgStructureQuery();
-  const subAvatarList: Avatar[] = employeeList
-    ? employeeList
-        .filter((thisEmp) => employee.subordinates.includes(thisEmp.fullName))
-        .map((thisEmp) => ({
-          name: thisEmp.fullName,
-          url: thisEmp.avatar,
-          onClickEvent: () => dispatch(selectEmployee(thisEmp.fullName)),
-        }))
-    : [];
-  const supAvatarList: Avatar[] = employeeList
-    ? employeeList
-        .filter((thisEmp) => employee.supervisors.includes(thisEmp.fullName))
-        .map((thisEmp) => ({
-          name: thisEmp.fullName,
-          url: thisEmp.avatar,
-          onClickEvent: () => dispatch(selectEmployee(thisEmp.fullName)),
-        }))
-    : [];
 
-  const thisSupList = employeeList?.filter((thisEmp) =>
-    employee.supervisors.includes(thisEmp.fullName)
-  );
+  const getAvatarListByLevel = (
+    key: "subordinates" | "supervisors"
+  ): Avatar[] => {
+    return employeeList
+      ? employeeList
+          .filter((thisEmp) => employee[key]?.includes(thisEmp.fullName))
+          .map((thisEmp) => ({
+            name: thisEmp.fullName,
+            url: thisEmp.avatar,
+            onClickEvent: () => dispatch(selectEmployee(thisEmp.id)),
+          }))
+      : [];
+  };
 
   const dispatch = useDispatch();
 
   return (
     <ItemContainer
       isSelected={isSelected}
-      id={toHyphenedStr(employee.fullName)}
+      id={`employee-${employee.id}`}
       onClick={() => {
         if (!isSelected) {
-          dispatch(selectEmployee(employee.fullName));
+          dispatch(selectEmployee(employee.id));
         }
       }}
     >
@@ -104,7 +87,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         {employee.fullName}
       </Typography>
 
-      <Collapse in={selectedEmployee === employee.fullName}>
+      <Collapse in={selectedEmployee === employee.id}>
         <Typography
           color="GrayText"
           variant="subtitle1"
@@ -115,8 +98,14 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           &ldquo;{employee.introduction}&rdquo;
         </Typography>
         <Box sx={{ ...flex("col", "flex-start", "flex-start"), gap: 1 }}>
-          <LabelAndAvatars label="Supervisors" avatarList={supAvatarList} />
-          <LabelAndAvatars label="Subordinates" avatarList={subAvatarList} />
+          <LabelAndAvatars
+            label="Supervisors"
+            avatarList={getAvatarListByLevel("supervisors")}
+          />
+          <LabelAndAvatars
+            label="Subordinates"
+            avatarList={getAvatarListByLevel("subordinates")}
+          />
         </Box>
       </Collapse>
 

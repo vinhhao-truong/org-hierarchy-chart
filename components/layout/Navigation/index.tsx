@@ -18,11 +18,12 @@ import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import { flex } from "@/utils/get/getSxMUI";
 import useScroll from "@/hooks/useScroll";
+import { useSelector } from "react-redux";
+import { selectApp } from "@/redux/services/appSlice";
 
 const Navigation = () => {
-  const theme = useTheme();
-
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const { isBlackMaskShown } = useSelector(selectApp);
 
   useScroll(
     () => {
@@ -39,7 +40,7 @@ const Navigation = () => {
 
   return (
     <div className="">
-      <Slide direction="down" in={!isCollapsed}>
+      <Slide direction="down" in={!isCollapsed && !isBlackMaskShown}>
         <Box
           sx={{
             boxShadow: 3,

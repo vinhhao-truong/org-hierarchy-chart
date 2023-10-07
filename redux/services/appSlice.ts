@@ -32,7 +32,7 @@ const appSlice = createSlice({
 
       //Scroll and select the employee to the middle of the screen
       const thisEmployeeId = document.getElementById(
-        `${toHyphenedStr(action.payload)}`
+        `employee-${action.payload}`
       );
       thisEmployeeId?.scrollIntoView({
         behavior: "smooth",
