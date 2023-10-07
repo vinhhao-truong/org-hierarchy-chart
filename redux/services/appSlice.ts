@@ -4,7 +4,7 @@ import { RootState } from "../store";
 
 interface InitialState {
   isBlackMaskShown: boolean;
-  highlightedEmployee?: string;
+  selectedEmployee?: string;
 }
 
 const initialState: InitialState = {
@@ -23,14 +23,14 @@ const appSlice = createSlice({
       state.isBlackMaskShown = false;
       document.querySelector("body")?.classList.remove("no-scrolling");
     },
-    highlightEmployee: (state, action: PayloadAction<string>) => {
-      state.highlightedEmployee = action.payload;
+    selectEmployee: (state, action: PayloadAction<string>) => {
+      state.selectedEmployee = action.payload;
 
       //On mask
       state.isBlackMaskShown = true;
       document.querySelector("body")?.classList.add("no-scrolling");
 
-      //Scroll and highlight the employee to the middle of the screen
+      //Scroll and select the employee to the middle of the screen
       const thisEmployeeId = document.getElementById(
         `${toHyphenedStr(action.payload)}`
       );
@@ -42,13 +42,12 @@ const appSlice = createSlice({
     },
     resetApp: (state) => {
       state.isBlackMaskShown = false;
-      state.highlightedEmployee = undefined;
+      state.selectedEmployee = undefined;
       document.querySelector("body")?.classList.remove("no-scrolling");
     },
   },
 });
 
 export default appSlice;
-export const { onMask, offMask, highlightEmployee, resetApp } =
-  appSlice.actions;
+export const { onMask, offMask, selectEmployee, resetApp } = appSlice.actions;
 export const selectApp = (state: RootState) => state.app;

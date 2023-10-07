@@ -1,5 +1,5 @@
 interface Avatar {
-  name: string;
+  name?: string;
   url: string;
   onClickEvent?: () => void;
 }

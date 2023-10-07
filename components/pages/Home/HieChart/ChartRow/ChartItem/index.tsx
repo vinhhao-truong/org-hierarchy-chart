@@ -7,31 +7,29 @@ import { flex, rotateAnimation, zoomAnimation } from "@/utils/get/getSxMUI";
 import {
   Box,
   Collapse,
-  Link,
-  Paper,
   Typography,
-  useTheme,
   Avatar as MuiAvatar,
+  Zoom,
+  Fade,
 } from "@mui/material";
 import React, { useState } from "react";
-import AddIcon from "@mui/icons-material/AddRounded";
-import { useParams, usePathname } from "next/navigation";
+import CollapseIcon from "@mui/icons-material/ExpandLessRounded";
+import ExpandIcon from "@mui/icons-material/ExpandMoreRounded";
+
 import { useDispatch, useSelector } from "react-redux";
-import { highlightEmployee, selectApp } from "@/redux/services/appSlice";
+import { selectEmployee, resetApp, selectApp } from "@/redux/services/appSlice";
 import toHyphenedStr from "@/utils/format/toHyphenedStr";
 import ItemContainer from "./ItemContainer";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
-import AvatarGroup from "@/components/common/AvatarGroup";
 import Avatar from "@/interfaces/Avatar";
+import LabelAndAvatars from "./LabelAndAvatars";
 
 interface ChartItemProps extends ReactProps {
   employee: Employee;
 }
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
-  const { highlightedEmployee } = useSelector(selectApp);
-  const isHighlighted = highlightedEmployee === employee.fullName;
-
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const { selectedEmployee } = useSelector(selectApp);
+  const isSelected = selectedEmployee === employee.fullName;
 
   const { data: employeeList } = useGetOrgStructureQuery();
   const subAvatarList: Avatar[] = employeeList
@@ -40,7 +38,16 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         .map((thisEmp) => ({
           name: thisEmp.fullName,
           url: thisEmp.avatar,
-          onClickEvent: () => dispatch(highlightEmployee(thisEmp.fullName)),
+          onClickEvent: () => dispatch(selectEmployee(thisEmp.fullName)),
+        }))
+    : [];
+  const supAvatarList: Avatar[] = employeeList
+    ? employeeList
+        .filter((thisEmp) => employee.supervisors.includes(thisEmp.fullName))
+        .map((thisEmp) => ({
+          name: thisEmp.fullName,
+          url: thisEmp.avatar,
+          onClickEvent: () => dispatch(selectEmployee(thisEmp.fullName)),
         }))
     : [];
 
@@ -52,12 +59,17 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
 
   return (
     <ItemContainer
-      isHighlighted={isHighlighted}
+      isSelected={isSelected}
       id={toHyphenedStr(employee.fullName)}
+      onClick={() => {
+        if (!isSelected) {
+          dispatch(selectEmployee(employee.fullName));
+        }
+      }}
     >
       {/* AVATAR */}
       <MuiAvatar
-        sx={{ width: 48, height: 48, mb: 1 }}
+        sx={{ width: 56, height: 56, mb: 1 }}
         src={employee.avatar}
         alt={`${employee.fullName}'s avatar`}
       />
@@ -87,34 +99,54 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           whiteSpace: "nowrap",
           fontWeight: 500,
           textAlign: "center",
-          mb: 2,
         }}
       >
         {employee.fullName}
       </Typography>
-      <Box sx={{ ...flex() }}>
-        <div
-          onClick={() => {
-            setIsExpanded((prev) => !prev);
-          }}
+
+      <Collapse in={selectedEmployee === employee.fullName}>
+        <Typography
+          color="GrayText"
+          variant="subtitle1"
+          fontStyle="italic"
+          fontSize={14}
+          mb={2}
         >
-          <AddIcon fontSize="medium" />
-        </div>
-      </Box>
-      <Collapse in={isExpanded}>
-        <Typography variant="subtitle1">
           &ldquo;{employee.introduction}&rdquo;
         </Typography>
-        <Box
-          sx={{
-            ...flex("row", "flex-start"),
-            gap: 2,
-          }}
-        >
-          <Typography>Subordinates: </Typography>
-          <AvatarGroup avatarList={subAvatarList} />
+        <Box sx={{ ...flex("col", "flex-start", "flex-start"), gap: 1 }}>
+          <LabelAndAvatars label="Supervisors" avatarList={supAvatarList} />
+          <LabelAndAvatars label="Subordinates" avatarList={subAvatarList} />
         </Box>
       </Collapse>
+
+      <div
+        style={{
+          alignSelf: "flex-end",
+          display: "flex",
+          alignItems: "center",
+          marginTop: "0.5rem",
+          cursor: "pointer",
+          gap: "0.2rem",
+        }}
+        onClick={() => {
+          if (isSelected) {
+            dispatch(resetApp());
+          }
+        }}
+      >
+        {isSelected ? (
+          <>
+            <Typography fontSize={14}>Collapse</Typography>
+            <CollapseIcon sx={{ fontSize: 18 }} />
+          </>
+        ) : (
+          <>
+            <Typography fontSize={14}>Expand</Typography>
+            <ExpandIcon sx={{ fontSize: 18 }} />
+          </>
+        )}
+      </div>
     </ItemContainer>
   );
 };

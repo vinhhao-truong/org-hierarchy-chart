@@ -2,11 +2,7 @@
 
 import Employee from "@/interfaces/OrgStructure";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
-import {
-  highlightEmployee,
-  onMask,
-  selectApp,
-} from "@/redux/services/appSlice";
+import { selectEmployee, onMask, selectApp } from "@/redux/services/appSlice";
 import { Autocomplete, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +10,7 @@ import { v4 } from "uuid";
 
 const SearchBar = () => {
   const { data: employeeList } = useGetOrgStructureQuery();
-  const { highlightedEmployee } = useSelector(selectApp);
+  const { selectedEmployee } = useSelector(selectApp);
 
   const dispatch = useDispatch();
 
@@ -39,7 +35,7 @@ const SearchBar = () => {
             {...props}
             key={v4()}
             onClick={() => {
-              dispatch(highlightEmployee(option.fullName));
+              dispatch(selectEmployee(option.fullName));
             }}
           >
             {option.fullName}
