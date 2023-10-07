@@ -28,7 +28,6 @@ const BlackMask = () => {
         zIndex: 1000,
         backgroundColor: `rgba(0, 0, 0, 0.3)`,
         top: 0,
-        backdropFilter: "blur(5px)",
       }}
     ></div>
   );

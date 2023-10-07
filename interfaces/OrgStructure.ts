@@ -1,6 +1,6 @@
 import Position from "./Position";
 
-interface OrgStructure {
+interface Employee {
   id: string;
   createdAt: number;
   fullName: string;
@@ -12,4 +12,4 @@ interface OrgStructure {
   supervisors: string[];
 }
 
-export default OrgStructure;
+export default Employee;

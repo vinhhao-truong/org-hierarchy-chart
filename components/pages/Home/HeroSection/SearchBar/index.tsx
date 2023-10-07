@@ -1,33 +1,45 @@
 "use client";
 
+import Employee from "@/interfaces/OrgStructure";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
-import { highlightEmployee, onMask } from "@/redux/services/appSlice";
-import { Autocomplete, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { useDispatch } from "react-redux";
+import {
+  highlightEmployee,
+  onMask,
+  selectApp,
+} from "@/redux/services/appSlice";
+import { Autocomplete, Paper, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 
 const SearchBar = () => {
   const { data: employeeList } = useGetOrgStructureQuery();
-  const router = useRouter();
+  const { highlightedEmployee } = useSelector(selectApp);
+
   const dispatch = useDispatch();
 
   return (
     <Autocomplete
       options={employeeList || []}
-      renderInput={(params) => <TextField {...params} label="Search" />}
+      renderInput={(params) => {
+        return (
+          <Paper
+            style={{
+              backgroundColor: "white",
+            }}
+            ref={params.InputProps.ref}
+          >
+            <input type="text" {...params.inputProps} />
+          </Paper>
+        );
+      }}
       renderOption={(props, option) => {
         return (
           <li
             {...props}
             key={v4()}
-            onSelect={() => {
-              router.push(`/#employee-${option.id}`, {
-                scroll: true,
-              });
+            onClick={() => {
               dispatch(highlightEmployee(option.fullName));
-              dispatch(onMask());
             }}
           >
             {option.fullName}
@@ -35,6 +47,7 @@ const SearchBar = () => {
         );
       }}
       getOptionLabel={(option) => option.fullName}
+      sx={{ position: "relative" }}
     />
   );
 };

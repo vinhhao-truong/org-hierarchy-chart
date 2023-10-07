@@ -1,3 +1,4 @@
+import toHyphenedStr from "@/utils/format/toHyphenedStr";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
@@ -24,6 +25,20 @@ const appSlice = createSlice({
     },
     highlightEmployee: (state, action: PayloadAction<string>) => {
       state.highlightedEmployee = action.payload;
+
+      //On mask
+      state.isBlackMaskShown = true;
+      document.querySelector("body")?.classList.add("no-scrolling");
+
+      //Scroll and highlight the employee to the middle of the screen
+      const thisEmployeeId = document.getElementById(
+        `${toHyphenedStr(action.payload)}`
+      );
+      thisEmployeeId?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
     },
     resetApp: (state) => {
       state.isBlackMaskShown = false;

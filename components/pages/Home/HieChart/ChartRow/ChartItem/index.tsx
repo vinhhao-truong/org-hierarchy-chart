@@ -1,55 +1,31 @@
 "use client";
 
-import OrgStructure from "@/interfaces/OrgStructure";
+import Employee from "@/interfaces/OrgStructure";
 import ReactProps from "@/interfaces/ReactProps";
 import getLvlColor from "@/utils/get/getLvlColor";
 import { flex, rotateAnimation, zoomAnimation } from "@/utils/get/getSxMUI";
 import {
-  Avatar,
   Box,
   Collapse,
   Link,
+  Paper,
   Typography,
   useTheme,
+  Avatar as MuiAvatar,
 } from "@mui/material";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/AddRounded";
 import { useParams, usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
-import { selectApp } from "@/redux/services/appSlice";
-
-const ItemContainer: React.FC<{ isHighlighted: boolean } & ReactProps> = ({
-  children,
-  id,
-  isHighlighted,
-}) => {
-  const theme = useTheme();
-
-  return (
-    <div style={{ padding: "1rem 0rem" }} id={id}>
-      <Box
-        sx={{
-          ...flex("col", "flex-start", "center"),
-          zIndex: isHighlighted ? 1001 : 0,
-          boxShadow: 2,
-          borderRadius: 2,
-          position: "relative",
-          p: 3,
-          overflow: "hidden",
-          backgroundColor: "white",
-          [theme.breakpoints.up("lg")]: {
-            width: "220px",
-          },
-        }}
-      >
-        {children}
-      </Box>
-    </div>
-  );
-};
+import { useDispatch, useSelector } from "react-redux";
+import { highlightEmployee, selectApp } from "@/redux/services/appSlice";
+import toHyphenedStr from "@/utils/format/toHyphenedStr";
+import ItemContainer from "./ItemContainer";
+import { useGetOrgStructureQuery } from "@/redux/services/api";
+import AvatarGroup from "@/components/common/AvatarGroup";
+import Avatar from "@/interfaces/Avatar";
 
 interface ChartItemProps extends ReactProps {
-  employee: OrgStructure;
+  employee: Employee;
 }
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
   const { highlightedEmployee } = useSelector(selectApp);
@@ -57,10 +33,30 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
+  const { data: employeeList } = useGetOrgStructureQuery();
+  const subAvatarList: Avatar[] = employeeList
+    ? employeeList
+        .filter((thisEmp) => employee.subordinates.includes(thisEmp.fullName))
+        .map((thisEmp) => ({
+          name: thisEmp.fullName,
+          url: thisEmp.avatar,
+          onClickEvent: () => dispatch(highlightEmployee(thisEmp.fullName)),
+        }))
+    : [];
+
+  const thisSupList = employeeList?.filter((thisEmp) =>
+    employee.supervisors.includes(thisEmp.fullName)
+  );
+
+  const dispatch = useDispatch();
+
   return (
-    <ItemContainer isHighlighted={isHighlighted} id={`employee-${employee.id}`}>
+    <ItemContainer
+      isHighlighted={isHighlighted}
+      id={toHyphenedStr(employee.fullName)}
+    >
       {/* AVATAR */}
-      <Avatar
+      <MuiAvatar
         sx={{ width: 48, height: 48, mb: 1 }}
         src={employee.avatar}
         alt={`${employee.fullName}'s avatar`}
@@ -109,6 +105,15 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         <Typography variant="subtitle1">
           &ldquo;{employee.introduction}&rdquo;
         </Typography>
+        <Box
+          sx={{
+            ...flex("row", "flex-start"),
+            gap: 2,
+          }}
+        >
+          <Typography>Subordinates: </Typography>
+          <AvatarGroup avatarList={subAvatarList} />
+        </Box>
       </Collapse>
     </ItemContainer>
   );

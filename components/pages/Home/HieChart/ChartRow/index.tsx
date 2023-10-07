@@ -1,6 +1,6 @@
 "use client";
 
-import OrgStructure from "@/interfaces/OrgStructure";
+import Employee from "@/interfaces/OrgStructure";
 import ReactProps from "@/interfaces/ReactProps";
 import { flex } from "@/utils/get/getSxMUI";
 import { Box, Grid, List, ListItem } from "@mui/material";
@@ -10,7 +10,7 @@ import { green, red, yellow } from "@mui/material/colors";
 import getLvlColor from "@/utils/get/getLvlColor";
 
 interface ChartRowProps extends ReactProps {
-  rowList?: OrgStructure[];
+  rowList?: Employee[];
   rowLvl?: number;
 }
 
