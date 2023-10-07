@@ -1,11 +1,15 @@
 "use client";
 
-import { Container, Grid, Typography, useTheme } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import MuiLink from "@mui/material/Link";
+import useTheme from "@mui/material/styles/useTheme";
+import Container from "@mui/material/Container";
+
 import moment from "moment";
 import React from "react";
 import footerList from "@/json/footer_list.json";
 import Link from "next/link";
-import { Link as MuiLink } from "@mui/material";
 import { flex } from "@/utils/get/getSxMUI";
 import { useSelector } from "react-redux";
 import { selectApp } from "@/redux/services/appSlice";

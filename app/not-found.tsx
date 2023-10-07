@@ -2,7 +2,10 @@
 
 import { setNotFound } from "@/redux/services/appSlice";
 import { flex } from "@/utils/get/getSxMUI";
-import { Box, Container, Link, Typography } from "@mui/material";
+import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+
 import Image from "next/image";
 import NextLink from "next/link";
 import { usePathname, useRouter } from "next/navigation";

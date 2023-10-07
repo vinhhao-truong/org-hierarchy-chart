@@ -1,7 +1,8 @@
 "use client";
 
 import { useGetOrgStructureQuery } from "@/redux/services/api";
-import { Box, List, ListItem, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import React from "react";
 import ChartRow from "./ChartRow";
 

@@ -7,7 +7,9 @@ import {
   selectApp,
   setHighlightedEmployees,
 } from "@/redux/services/appSlice";
-import { Autocomplete, Box, createFilterOptions } from "@mui/material";
+import Box from "@mui/material/Box";
+import Autocomplete from "@mui/material/Autocomplete";
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";

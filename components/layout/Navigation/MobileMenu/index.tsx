@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Box, useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import useTheme from "@mui/material/styles/useTheme";
 
 const MobileMenu = () => {
   const theme = useTheme();

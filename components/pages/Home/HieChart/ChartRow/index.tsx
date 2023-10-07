@@ -2,11 +2,12 @@
 
 import Employee from "@/interfaces/OrgStructure";
 import ReactProps from "@/interfaces/ReactProps";
-import { flex } from "@/utils/get/getSxMUI";
-import { Box, Grid, List, ListItem } from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+
 import React from "react";
 import ChartItem from "./ChartItem";
-import { green, red, yellow } from "@mui/material/colors";
 import getLvlColor from "@/utils/get/getLvlColor";
 
 interface ChartRowProps extends ReactProps {

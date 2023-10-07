@@ -2,9 +2,8 @@
 
 import ReactProps from "@/interfaces/ReactProps";
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Navigation from "../Navigation";
-import Body from "../Body";
 import Footer from "../Footer";
 import { Provider } from "react-redux";
 import store from "@/redux/store";

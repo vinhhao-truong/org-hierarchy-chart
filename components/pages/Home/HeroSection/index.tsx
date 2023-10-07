@@ -1,7 +1,8 @@
 "use client";
 
 import { flex } from "@/utils/get/getSxMUI";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
+
 import Image, { ImageLoader } from "next/image";
 import React from "react";
 import SearchBar from "./SearchBar";

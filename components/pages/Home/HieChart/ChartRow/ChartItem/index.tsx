@@ -4,8 +4,11 @@ import Employee from "@/interfaces/OrgStructure";
 import ReactProps from "@/interfaces/ReactProps";
 import getLvlColor from "@/utils/get/getLvlColor";
 import { flex } from "@/utils/get/getSxMUI";
-import { Box, Collapse, Typography, Avatar as MuiAvatar } from "@mui/material";
-import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import Typography from "@mui/material/Typography";
+import MuiAvatar from "@mui/material/Avatar";
+import React from "react";
 import CollapseIcon from "@mui/icons-material/ExpandLessRounded";
 import ExpandIcon from "@mui/icons-material/ExpandMoreRounded";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +16,6 @@ import {
   selectEmployee,
   unselectEmployee,
   selectApp,
-  setHighlightedEmployee,
 } from "@/redux/services/appSlice";
 import ItemContainer from "./ItemContainer";
 import { useGetOrgStructureQuery } from "@/redux/services/api";

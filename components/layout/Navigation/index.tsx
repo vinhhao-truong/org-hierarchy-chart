@@ -1,18 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Box,
-  Collapse,
-  Container,
-  createTheme,
-  Fade,
-  Grid,
-  Slide,
-  useTheme,
-} from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
+
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Slide from "@mui/material/Slide";
+
 import DesktopMenu from "./DesktopMenu";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";

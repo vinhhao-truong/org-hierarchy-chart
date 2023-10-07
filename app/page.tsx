@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 import HeroSection from "@/components/pages/Home/HeroSection";
 import HieChart from "@/components/pages/Home/HieChart";
 import { getOrgStructure, getRunningQueriesThunk } from "@/redux/services/api";

@@ -2,9 +2,10 @@
 
 import React from "react";
 import ReactProps from "@/interfaces/ReactProps";
-import { SxProps, useTheme } from "@mui/material";
 import { flex } from "@/utils/get/getSxMUI";
-import { Paper } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import useTheme from "@mui/material/styles/useTheme";
+import { SxProps } from "@mui/material/styles";
 
 const ItemContainer: React.FC<
   {

@@ -2,11 +2,10 @@
 
 import ReactProps from "@/interfaces/ReactProps";
 import React, { useState } from "react";
-import {
-  AvatarGroup as MuiAvatarGroup,
-  Avatar as MuiAvatar,
-  Tooltip,
-} from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
+import MuiAvatar from "@mui/material/Avatar";
+import MuiAvatarGroup from "@mui/material/AvatarGroup";
+
 import Avatar from "@/interfaces/Avatar";
 
 const AvatarGroup: React.FC<

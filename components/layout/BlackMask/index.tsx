@@ -6,7 +6,7 @@ import {
   unselectEmployee,
   selectApp,
 } from "@/redux/services/appSlice";
-import { Box, useTheme } from "@mui/material";
+import useTheme from "@mui/material/styles/useTheme";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/CloseRounded";
