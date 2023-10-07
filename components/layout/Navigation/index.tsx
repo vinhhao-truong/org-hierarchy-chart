@@ -23,7 +23,7 @@ import { selectApp } from "@/redux/services/appSlice";
 
 const Navigation = () => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
-  const { isBlackMaskShown } = useSelector(selectApp);
+  const { isBlackMaskShown, isNotFoundPage } = useSelector(selectApp);
 
   useScroll(
     () => {
@@ -37,6 +37,10 @@ const Navigation = () => {
       }
     }
   );
+
+  if (isNotFoundPage) {
+    return <></>;
+  }
 
   return (
     <div className="">

@@ -9,7 +9,12 @@ import React, { useState } from "react";
 import CollapseIcon from "@mui/icons-material/ExpandLessRounded";
 import ExpandIcon from "@mui/icons-material/ExpandMoreRounded";
 import { useDispatch, useSelector } from "react-redux";
-import { selectEmployee, resetApp, selectApp } from "@/redux/services/appSlice";
+import {
+  selectEmployee,
+  unselectEmployee,
+  selectApp,
+  setHighlightedEmployee,
+} from "@/redux/services/appSlice";
 import ItemContainer from "./ItemContainer";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import Avatar from "@/interfaces/Avatar";
@@ -19,10 +24,12 @@ interface ChartItemProps extends ReactProps {
   employee: Employee;
 }
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
-  const { selectedEmployee } = useSelector(selectApp);
-  const isSelected = selectedEmployee === employee.id;
-
   const { data: employeeList } = useGetOrgStructureQuery();
+
+  const { selectedEmployeeId, highlightedEmployeeIds } = useSelector(selectApp);
+
+  const isSelected = selectedEmployeeId === employee.id;
+  const isHighlighted = highlightedEmployeeIds.includes(employee.id);
 
   const getAvatarListByLevel = (
     key: "subordinates" | "supervisors"
@@ -43,6 +50,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
   return (
     <ItemContainer
       isSelected={isSelected}
+      isHighlighted={isHighlighted}
       id={`employee-${employee.id}`}
       onClick={() => {
         if (!isSelected) {
@@ -87,7 +95,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         {employee.fullName}
       </Typography>
 
-      <Collapse in={selectedEmployee === employee.id}>
+      <Collapse in={isSelected}>
         <Typography
           color="GrayText"
           variant="subtitle1"
@@ -119,21 +127,16 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           gap: "0.2rem",
         }}
         onClick={() => {
-          if (isSelected) {
-            dispatch(resetApp());
-          }
+          dispatch(unselectEmployee());
         }}
       >
+        <Typography fontSize={14}>
+          {isSelected ? "Collapse" : "Expand"}
+        </Typography>
         {isSelected ? (
-          <>
-            <Typography fontSize={14}>Collapse</Typography>
-            <CollapseIcon sx={{ fontSize: 18 }} />
-          </>
+          <CollapseIcon sx={{ fontSize: 18 }} />
         ) : (
-          <>
-            <Typography fontSize={14}>Expand</Typography>
-            <ExpandIcon sx={{ fontSize: 18 }} />
-          </>
+          <ExpandIcon sx={{ fontSize: 18 }} />
         )}
       </div>
     </ItemContainer>

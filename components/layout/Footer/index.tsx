@@ -5,10 +5,18 @@ import moment from "moment";
 import React from "react";
 import footerList from "@/json/footer_list.json";
 import Link from "next/link";
+import { Link as MuiLink } from "@mui/material";
 import { flex } from "@/utils/get/getSxMUI";
+import { useSelector } from "react-redux";
+import { selectApp } from "@/redux/services/appSlice";
 
 const Footer = () => {
   const theme = useTheme();
+  const { isNotFoundPage } = useSelector(selectApp);
+
+  if (isNotFoundPage) {
+    return <></>;
+  }
 
   return (
     <Container
@@ -35,9 +43,9 @@ const Footer = () => {
               key={`footer-${idx}`}
               item
             >
-              <Link href={pathname}>
+              <MuiLink component={Link} href={pathname}>
                 <Typography>{title}</Typography>
-              </Link>
+              </MuiLink>
             </Grid>
           );
         })}

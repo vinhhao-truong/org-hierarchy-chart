@@ -1,7 +1,11 @@
 "use client";
 
 import useKeyPress from "@/hooks/useKeyPress";
-import { offMask, resetApp, selectApp } from "@/redux/services/appSlice";
+import {
+  offMask,
+  unselectEmployee,
+  selectApp,
+} from "@/redux/services/appSlice";
 import { Box, useTheme } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,14 +18,14 @@ const BlackMask = () => {
   const theme = useTheme();
 
   useKeyPress("Escape", () => {
-    dispatch(resetApp());
+    dispatch(unselectEmployee());
   });
 
   return (
     <div
       className=""
       onClick={() => {
-        dispatch(resetApp());
+        dispatch(unselectEmployee());
       }}
       style={{
         display: isBlackMaskShown ? "block" : "none",
