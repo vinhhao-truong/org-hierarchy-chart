@@ -63,7 +63,6 @@ const MobileMenu = () => {
             }}
             onClick={() => {
               setIsMenuOpen(false);
-              console.log("close");
             }}
           >
             <CloseIcon />

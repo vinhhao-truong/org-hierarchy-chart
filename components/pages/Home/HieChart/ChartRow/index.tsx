@@ -49,14 +49,14 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
             whiteSpace: "nowrap",
             textAlign: "right",
             fontWeight: 900,
-            fontSize: "100px",
+            fontSize: "120px",
             position: "absolute",
             bottom: 0,
             right: "1rem",
             color: getLvlColor(rowLvl),
           }}
         >
-          Tier {rowLvl}
+          {rowLvl}
         </Typography>
         {/* ROW TITLE MASK */}
       </Box>

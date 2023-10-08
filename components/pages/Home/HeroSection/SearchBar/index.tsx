@@ -2,20 +2,14 @@
 
 import Employee from "@/interfaces/OrgStructure";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
-import {
-  selectEmployee,
-  selectApp,
-  setHighlightedEmployees,
-} from "@/redux/services/appSlice";
-import Box from "@mui/material/Box";
+import { selectEmployee } from "@/redux/services/appSlice";
 import Autocomplete from "@mui/material/Autocomplete";
-
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import CustomTxtField from "../CustomTxtField";
 import SearchIcon from "@mui/icons-material/SearchRounded";
-import ClearIcon from "@mui/icons-material/ClearAllRounded";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const SearchBar = () => {
   const {
@@ -25,6 +19,8 @@ const SearchBar = () => {
   } = useGetOrgStructureQuery();
   const [value, setValue] = useState<Employee | null>(null);
 
+  const isSearchLoading = isLoading || isFetching;
+
   const dispatch = useDispatch();
 
   return (
@@ -32,14 +28,16 @@ const SearchBar = () => {
       options={employeeList || []}
       noOptionsText="No employee found..."
       renderInput={(params) => {
-        // return <CustomTxtField {...params} placeholder="Search in Home..." />;
-        console.log(params);
         return (
           <CustomTxtField
             {...params}
             InputProps={{
               ...params.InputProps,
-              startAdornment: <SearchIcon />,
+              startAdornment: isSearchLoading ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : (
+                <SearchIcon />
+              ),
             }}
             placeholder="Search in Home..."
           />
@@ -52,7 +50,7 @@ const SearchBar = () => {
           </li>
         );
       }}
-      loading={isLoading || isFetching}
+      loading={isSearchLoading}
       getOptionLabel={(option) => option.fullName}
       clearOnEscape
       includeInputInList
