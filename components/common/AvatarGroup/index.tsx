@@ -16,13 +16,16 @@ const AvatarGroup: React.FC<
 > = ({ avatarList, avatarSize = 48 }) => {
   return (
     <MuiAvatarGroup>
-      {avatarList?.map(({ url, onClickEvent, name }, idx) => {
+      {avatarList?.map(({ url, onClickEvent, name, hoverColor }, idx) => {
+        const isClickable: boolean = !!onClickEvent;
+
         return (
           <Tooltip
             arrow
             describeChild
             title={name}
             key={`${name}-avatar-${idx}`}
+            disableInteractive
           >
             <MuiAvatar
               alt={`${name}-avatar-${idx}`}
@@ -31,9 +34,15 @@ const AvatarGroup: React.FC<
                 onClick: onClickEvent,
               }}
               sx={{
-                cursor: onClickEvent ? "pointer" : "auto",
+                cursor: isClickable ? "pointer" : "auto",
                 width: avatarSize,
                 height: avatarSize,
+                borderColor: "transparent",
+                border: 3,
+                "&:hover": {
+                  borderColor:
+                    isClickable && hoverColor ? hoverColor : "transparent",
+                },
               }}
             />
           </Tooltip>

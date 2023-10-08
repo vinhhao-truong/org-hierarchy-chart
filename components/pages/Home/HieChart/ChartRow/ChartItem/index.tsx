@@ -43,6 +43,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
             name: thisEmp.fullName,
             url: thisEmp.avatar,
             onClickEvent: () => dispatch(selectEmployee(thisEmp.id)),
+            hoverColor: getLvlColor(thisEmp.level),
           }))
       : [];
   };

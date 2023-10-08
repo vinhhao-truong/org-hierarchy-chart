@@ -13,32 +13,36 @@ import Autocomplete from "@mui/material/Autocomplete";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
+import CustomTxtField from "../CustomTxtField";
+import SearchIcon from "@mui/icons-material/SearchRounded";
+import ClearIcon from "@mui/icons-material/ClearAllRounded";
 
 const SearchBar = () => {
-  const { data: employeeList } = useGetOrgStructureQuery();
+  const {
+    data: employeeList,
+    isFetching,
+    isLoading,
+  } = useGetOrgStructureQuery();
+  const [value, setValue] = useState<Employee | null>(null);
 
   const dispatch = useDispatch();
 
   return (
     <Autocomplete
       options={employeeList || []}
+      noOptionsText="No employee found..."
       renderInput={(params) => {
+        // return <CustomTxtField {...params} placeholder="Search in Home..." />;
+        console.log(params);
         return (
-          <Box ref={params.InputProps.ref}>
-            <input
-              type="text"
-              {...params.inputProps}
-              style={{
-                width: "300px",
-                padding: "1rem 1.5rem",
-                borderRadius: "28px",
-                backgroundColor: "white",
-                border: "none",
-                fontSize: "16px",
-                outline: "none",
-              }}
-            />
-          </Box>
+          <CustomTxtField
+            {...params}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: <SearchIcon />,
+            }}
+            placeholder="Search in Home..."
+          />
         );
       }}
       renderOption={(props, option) => {
@@ -48,26 +52,21 @@ const SearchBar = () => {
           </li>
         );
       }}
+      loading={isLoading || isFetching}
       getOptionLabel={(option) => option.fullName}
-      // onInputChange={(_, value) => {
-      //   const thisEmployee = employeeList?.find(
-      //     ({ fullName }) => value.toLowerCase() === fullName.toLowerCase()
-      //   );
-
-      //   //check if the employee exists
-      //   if (!!thisEmployee) {
-      //     dispatch(selectEmployee(thisEmployee.id));
-      //   }
-      // }}
-      sx={{ position: "relative" }}
       clearOnEscape
       includeInputInList
       groupBy={(option) => option.position}
-      onChange={(e, value) => {
-        if (value) {
-          dispatch(selectEmployee(value.id));
+      onChange={(e, thisValue, reason) => {
+        if (reason === "selectOption" && thisValue) {
+          setValue(null);
+          dispatch(selectEmployee(thisValue.id));
         }
       }}
+      onBlur={() => {
+        setValue(null);
+      }}
+      value={value}
     />
   );
 };

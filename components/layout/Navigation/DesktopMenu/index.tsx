@@ -42,7 +42,7 @@ const DesktopMenu = () => {
                   textDecoration: "none",
                   fontWeight: isActive ? 600 : 200,
                   "&:hover": {
-                    textDecoration: !isActive ? "underline overline" : "none",
+                    color: "ActiveCaption",
                   },
                 }}
                 component={Link}

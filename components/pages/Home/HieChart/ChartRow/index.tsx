@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import React from "react";
 import ChartItem from "./ChartItem";
 import getLvlColor from "@/utils/get/getLvlColor";
+import Typography from "@mui/material/Typography";
 
 interface ChartRowProps extends ReactProps {
   rowList?: Employee[];
@@ -24,8 +25,6 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
       columnSpacing={3}
       rowSpacing={1}
       sx={{
-        overflowX: "auto",
-        overflow: "visible",
         //pattern style
         backgroundImage: `linear-gradient(135deg, ${patternColor} 25%, transparent 25%), linear-gradient(225deg, ${patternColor} 25%, transparent 25%), linear-gradient(45deg, ${patternColor} 25%, transparent 25%), linear-gradient(315deg, ${patternColor} 25%, #ffffff 25%)`,
         backgroundPosition: "8px 0, 8px 0, 0 0, 0 0",
@@ -43,7 +42,24 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
             "linear-gradient(135deg, rgba(255,255,255,1) 67%, rgba(255,255,255,0.7) 20%)",
           position: "absolute",
         }}
-      />
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            whiteSpace: "nowrap",
+            textAlign: "right",
+            fontWeight: 900,
+            fontSize: "100px",
+            position: "absolute",
+            bottom: 0,
+            right: "1rem",
+            color: getLvlColor(rowLvl),
+          }}
+        >
+          Tier {rowLvl}
+        </Typography>
+        {/* ROW TITLE MASK */}
+      </Box>
       {rowList.map((employee, idx) => {
         return (
           <Grid xs={12} sm={6} lg="auto" item key={`employee-${employee.id}`}>

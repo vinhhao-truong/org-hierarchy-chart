@@ -7,6 +7,7 @@ import { getOrgStructure, getRunningQueriesThunk } from "@/redux/services/api";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectApp, setNotFound } from "@/redux/services/appSlice";
+import BackToTopBtn from "@/components/common/BackToTopBtn";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function Home() {
       <Container maxWidth="xl">
         <HieChart />
       </Container>
+      {/* <BackToTopBtn /> */}
     </>
   );
 }
