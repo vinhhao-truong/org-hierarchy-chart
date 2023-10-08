@@ -20,6 +20,8 @@ const HeroSection = () => {
       {/* BG IMG */}
       <Image
         src="https://images.pexels.com/photos/590041/pexels-photo-590041.jpeg?auto=compress&cs=tinysrgb&w=6144&h=4069&dpr=1"
+        blurDataURL="https://images.pexels.com/photos/590041/pexels-photo-590041.jpeg?auto=compress&cs=tinysrgb&w=640&h=360&dpr=1"
+        placeholder="blur"
         alt="hero-bg"
         fill
         style={{ objectFit: "cover" }}
