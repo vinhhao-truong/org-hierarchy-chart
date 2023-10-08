@@ -23,7 +23,6 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
     <Grid
       container
       columnSpacing={3}
-      rowSpacing={1}
       sx={{
         //pattern style
         backgroundImage: `linear-gradient(135deg, ${patternColor} 25%, transparent 25%), linear-gradient(225deg, ${patternColor} 25%, transparent 25%), linear-gradient(45deg, ${patternColor} 25%, transparent 25%), linear-gradient(315deg, ${patternColor} 25%, #ffffff 25%)`,
@@ -41,6 +40,7 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
           background:
             "linear-gradient(135deg, rgba(255,255,255,1) 67%, rgba(255,255,255,0.7) 20%)",
           position: "absolute",
+          right: 0,
         }}
       >
         <Typography

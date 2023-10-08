@@ -90,7 +90,6 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         variant="h6"
         component="h2"
         sx={{
-          whiteSpace: "nowrap",
           fontWeight: 500,
           textAlign: "center",
         }}

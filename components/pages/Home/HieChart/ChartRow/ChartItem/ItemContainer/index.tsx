@@ -6,6 +6,7 @@ import { flex } from "@/utils/get/getSxMUI";
 import Paper from "@mui/material/Paper";
 import useTheme from "@mui/material/styles/useTheme";
 import { SxProps } from "@mui/material/styles";
+import { Box } from "@mui/material";
 
 const ItemContainer: React.FC<
   {
@@ -34,7 +35,16 @@ const ItemContainer: React.FC<
   };
 
   return (
-    <div onClick={onClick} style={{ padding: "1rem 0rem" }} id={id}>
+    <Box
+      onClick={onClick}
+      sx={{
+        py: 2,
+        [theme.breakpoints.down("xl")]: {
+          py: 1,
+        },
+      }}
+      id={id}
+    >
       <Paper
         sx={{
           ...flex("col", "flex-start", "center"),
@@ -59,7 +69,7 @@ const ItemContainer: React.FC<
       >
         {children}
       </Paper>
-    </div>
+    </Box>
   );
 };
 
