@@ -22,6 +22,7 @@ import { useGetOrgStructureQuery } from "@/redux/services/api";
 import Avatar from "@/interfaces/Avatar";
 import LabelAndAvatars from "./LabelAndAvatars";
 import useKeyPress from "@/hooks/useKeyPress";
+import PositionIcon from "@/components/common/PositionIcon";
 
 interface ChartItemProps extends ReactProps {
   employee: Employee;
@@ -66,6 +67,19 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         }
       }}
     >
+      {/* --BG ICON-- */}
+      <PositionIcon
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          fontSize: "128px",
+          opacity: 0.12,
+          color: getPositionLvlColor(employee.level),
+        }}
+        level={employee.level}
+      />
       {/* --AVATAR-- */}
       <MuiAvatar
         sx={{ width: 56, height: 56, mb: 1 }}

@@ -10,6 +10,9 @@ import { v4 } from "uuid";
 import CustomTxtField from "../CustomTxtField";
 import SearchIcon from "@mui/icons-material/SearchRounded";
 import CircularProgress from "@mui/material/CircularProgress";
+import { ListItem, Typography } from "@mui/material";
+import PositionIcon from "@/components/common/PositionIcon";
+import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 
 const SearchBar = () => {
   const {
@@ -46,8 +49,20 @@ const SearchBar = () => {
       }}
       renderOption={(props, option) => {
         return (
-          <li {...props} key={v4()}>
-            {option.fullName}
+          <li
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            {...props}
+            key={v4()}
+          >
+            <Typography>{option.fullName}</Typography>
+            <PositionIcon
+              level={option.level}
+              sx={{ color: getPositionLvlColor(option.level) }}
+            />
           </li>
         );
       }}
@@ -58,8 +73,11 @@ const SearchBar = () => {
       groupBy={(option) => option.position}
       onChange={(e, thisValue, reason) => {
         if (reason === "selectOption" && thisValue) {
-          setValue(null);
-          dispatch(selectEmployee(thisValue.id));
+          //delay to blurOnSelect attribs first -> prevent not scrolling to the selected
+          setTimeout(() => {
+            setValue(null);
+            dispatch(selectEmployee(thisValue.id));
+          }, 0.5);
         }
       }}
       onBlur={() => {

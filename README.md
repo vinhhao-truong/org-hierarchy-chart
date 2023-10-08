@@ -41,3 +41,15 @@ bun dev
 ```
 
 6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Highlights
+
+1. Each item (node) is linked to gether through "Subordinates" and "Supervisors", and is clickable to navigate to another nodes.
+2. Search bar can filter and directly navigate user to the highlighted employee on select.
+3. There is a simple "Under Construction" page for any unavailable pages.
+
+## Possible Further Improvement
+
+1. The search bar can be sticky on top (mobile) and on top right (desktop) when the user scrolls down and the hero section is out of screen.
+
+2. A page of employee data in detail.

@@ -10,8 +10,6 @@ import RowHead from "./ChartRow/RowHead";
 import Image from "next/image";
 import { flex } from "@/utils/get/getSxMUI";
 
-const headTitles = ["Executive Level", "Management Level", "Operational Level"];
-
 const HieChart = () => {
   const {
     data: employeeList,
@@ -59,7 +57,7 @@ const HieChart = () => {
 
         return (
           <Box key={`hie-char-row-${idx}`}>
-            <RowHead title={headTitles[idx]} rowLvl={thisLvl} />
+            <RowHead rowLvl={thisLvl} />
             <ChartRow rowList={lvlData} rowLvl={thisLvl} />
           </Box>
         );
