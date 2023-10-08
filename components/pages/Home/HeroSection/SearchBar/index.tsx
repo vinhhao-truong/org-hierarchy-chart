@@ -25,6 +25,7 @@ const SearchBar = () => {
 
   return (
     <Autocomplete
+      blurOnSelect
       options={employeeList || []}
       noOptionsText="No employee found..."
       renderInput={(params) => {
