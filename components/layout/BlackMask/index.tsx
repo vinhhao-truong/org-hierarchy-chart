@@ -2,12 +2,11 @@
 
 import useKeyPress from "@/hooks/useKeyPress";
 import {
-  offMask,
   unselectEmployee,
   selectApp,
+  offMask,
 } from "@/redux/services/appSlice";
-import useTheme from "@mui/material/styles/useTheme";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 
@@ -15,15 +14,13 @@ const BlackMask = () => {
   const { isBlackMaskShown } = useSelector(selectApp);
   const dispatch = useDispatch();
 
-  const theme = useTheme();
-
+  //user press ESC to take of the mask
   useKeyPress("Escape", () => {
-    dispatch(unselectEmployee());
+    dispatch(offMask());
   });
 
   return (
     <div
-      className=""
       onClick={() => {
         dispatch(unselectEmployee());
       }}
@@ -37,21 +34,16 @@ const BlackMask = () => {
         top: 0,
       }}
     >
-      <div
-        style={{
+      <CloseIcon
+        sx={{
+          color: "white",
+          fontSize: "32px",
+          cursor: "pointer",
           position: "absolute",
           top: "1rem",
           right: "1rem",
         }}
-      >
-        <CloseIcon
-          sx={{
-            color: "white",
-            fontSize: "32px",
-            cursor: "pointer",
-          }}
-        />
-      </div>
+      />
     </div>
   );
 };

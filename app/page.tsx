@@ -3,17 +3,15 @@
 import Container from "@mui/material/Container";
 import HeroSection from "@/components/pages/Home/HeroSection";
 import HieChart from "@/components/pages/Home/HieChart";
-import { getOrgStructure, getRunningQueriesThunk } from "@/redux/services/api";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectApp, setNotFound } from "@/redux/services/appSlice";
-import BackToTopBtn from "@/components/common/BackToTopBtn";
+import { useDispatch } from "react-redux";
+import { setNotFound } from "@/redux/services/appSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setNotFound(false));
+    dispatch(setNotFound(false)); //let the client-side detect that the page is available
   }, []);
 
   return (
@@ -22,7 +20,6 @@ export default function Home() {
       <Container maxWidth="xl">
         <HieChart />
       </Container>
-      {/* <BackToTopBtn /> */}
     </>
   );
 }

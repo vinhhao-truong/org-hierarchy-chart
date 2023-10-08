@@ -1,6 +1,6 @@
 "use client";
 
-import Employee from "@/interfaces/OrgStructure";
+import Employee from "@/interfaces/Employee";
 import ReactProps from "@/interfaces/ReactProps";
 
 import Box from "@mui/material/Box";
@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 
 import React from "react";
 import ChartItem from "./ChartItem";
-import getLvlColor from "@/utils/get/getLvlColor";
+import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 import Typography from "@mui/material/Typography";
 
 interface ChartRowProps extends ReactProps {
@@ -17,7 +17,7 @@ interface ChartRowProps extends ReactProps {
 }
 
 const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
-  const patternColor = getLvlColor(rowLvl);
+  const patternColor = getPositionLvlColor(rowLvl);
 
   return rowList ? (
     <Grid
@@ -53,7 +53,7 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
             position: "absolute",
             bottom: 0,
             right: "1rem",
-            color: getLvlColor(rowLvl),
+            color: getPositionLvlColor(rowLvl),
           }}
         >
           {rowLvl}

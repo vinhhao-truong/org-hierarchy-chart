@@ -1,7 +1,7 @@
 "use client";
 
 import ReactProps from "@/interfaces/ReactProps";
-import getLvlColor from "@/utils/get/getLvlColor";
+import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
@@ -12,7 +12,7 @@ const RowHead: React.FC<{ title: string; rowLvl: number } & ReactProps> = ({
   return (
     <Box
       sx={{
-        backgroundColor: getLvlColor(rowLvl),
+        backgroundColor: getPositionLvlColor(rowLvl),
         color: "white",
         py: 0.5,
         textAlign: "center",

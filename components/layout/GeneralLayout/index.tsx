@@ -18,6 +18,7 @@ const theme = createTheme({
 
 const GeneralLayout: React.FC<ReactProps> = ({ children }) => {
   return (
+    //includes Redux and MUI
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Navigation />

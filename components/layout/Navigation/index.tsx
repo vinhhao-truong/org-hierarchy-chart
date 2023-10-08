@@ -18,6 +18,7 @@ const Navigation = () => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const { isBlackMaskShown, isNotFoundPage } = useSelector(selectApp);
 
+  //Show / Hide the nav on scroll
   useScroll(
     () => {
       if (isCollapsed) {
@@ -31,37 +32,36 @@ const Navigation = () => {
     }
   );
 
+  //Hide nav if the page is not available
   if (isNotFoundPage) {
     return <></>;
   }
 
   return (
-    <div className="">
-      <Slide direction="down" in={!isCollapsed && !isBlackMaskShown}>
-        <Box
+    <Slide direction="down" in={!isCollapsed && !isBlackMaskShown}>
+      <Box
+        sx={{
+          boxShadow: 3,
+          position: "fixed",
+          top: "0",
+          backgroundColor: "white",
+          zIndex: 1000,
+          width: "100%",
+        }}
+      >
+        <Container
+          maxWidth="xl"
           sx={{
-            boxShadow: 3,
-            position: "fixed",
-            top: "0",
-            backgroundColor: "white",
-            zIndex: 1000,
-            width: "100%",
+            ...flex("row", "space-between"),
+            py: "0.5rem",
           }}
         >
-          <Container
-            maxWidth="xl"
-            sx={{
-              ...flex("row", "space-between"),
-              py: "0.5rem",
-            }}
-          >
-            <Logo />
-            <DesktopMenu />
-            <MobileMenu />
-          </Container>
-        </Box>
-      </Slide>
-    </div>
+          <Logo />
+          <DesktopMenu />
+          <MobileMenu />
+        </Container>
+      </Box>
+    </Slide>
   );
 };
 

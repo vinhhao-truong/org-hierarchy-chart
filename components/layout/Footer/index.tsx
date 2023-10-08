@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import MuiLink from "@mui/material/Link";
 import useTheme from "@mui/material/styles/useTheme";
 import Container from "@mui/material/Container";
-
 import moment from "moment";
 import React from "react";
 import footerList from "@/json/footer_list.json";
@@ -32,6 +31,7 @@ const Footer = () => {
         gap: "4rem",
       }}
     >
+      {/* --GROUP OF LINKS-- */}
       <Grid container rowSpacing={6}>
         {footerList.map(({ title, pathname }, idx) => {
           return (
@@ -54,6 +54,7 @@ const Footer = () => {
           );
         })}
       </Grid>
+      {/* --GRAY TEXT-- */}
       <Typography color="GrayText" sx={{}}>
         @ {moment().format("YYYY")} OHC. All Rights Reserved
       </Typography>

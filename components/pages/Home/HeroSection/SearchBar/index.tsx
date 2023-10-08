@@ -1,6 +1,6 @@
 "use client";
 
-import Employee from "@/interfaces/OrgStructure";
+import Employee from "@/interfaces/Employee";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import { selectEmployee } from "@/redux/services/appSlice";
 import Autocomplete from "@mui/material/Autocomplete";

@@ -16,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* wrap into GeneralLayout for client-side components being used for the entire app */}
         <GeneralLayout>{children}</GeneralLayout>
       </body>
     </html>

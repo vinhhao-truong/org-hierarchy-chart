@@ -1,11 +1,9 @@
 "use client";
 
 import React from "react";
-
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import useTheme from "@mui/material/styles/useTheme";
-
 import navList from "@/json/nav_list.json";
 import Link from "next/link";
 import MuiLink from "@mui/material/Link";

@@ -9,9 +9,9 @@ const useKeyPress = (key: string, pressEvent: Function) => {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", escapeHandler);
+    document.addEventListener("keydown", escapeHandler); //handle key press
     return () => {
-      document.removeEventListener("keydown", escapeHandler, false);
+      document.removeEventListener("keydown", escapeHandler, false); //cleanup fn
     };
   }, []);
 };

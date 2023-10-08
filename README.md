@@ -20,11 +20,11 @@ This is a single-page web application displaying a non-binary organizational hie
 
 ```bash
 npm init
-#or
+# or
 yarn
-#or
+# or
 pnpm install
-#or
+# or
 bun install
 ```
 

@@ -1,4 +1,4 @@
-import Employee from "@/interfaces/OrgStructure";
+import Employee from "@/interfaces/Employee";
 import Position from "@/interfaces/Position";
 import toHyphenedStr from "@/utils/format/toHyphenedStr";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -7,7 +7,7 @@ import { HYDRATE } from "next-redux-wrapper";
 export const api = createApi({
   reducerPath: "base",
   endpoints: (build) => ({
-    //blank if no adjacent "enpoints" files
+    //blank if no adjacent "endpoints" files
     getOrgStructure: build.query<Employee[], void>({
       query: () => ({ url: "/organisation/get-org-structure" }),
       providesTags: ["orgStructure"],

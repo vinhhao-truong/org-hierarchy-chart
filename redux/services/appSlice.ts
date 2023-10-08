@@ -20,15 +20,18 @@ const appSlice = createSlice({
   reducers: {
     onMask: (state) => {
       state.isBlackMaskShown = true;
-      document.querySelector("body")?.classList.add("no-scrolling");
+      document.querySelector("body")?.classList.add("no-scrolling"); //prevent user from scrolling when the mask is on
     },
+
     offMask: (state) => {
       state.isBlackMaskShown = false;
       document.querySelector("body")?.classList.remove("no-scrolling");
     },
+
     setNotFound: (state, action: PayloadAction<boolean>) => {
       state.isNotFoundPage = action.payload;
     },
+
     selectEmployee: (state, action: PayloadAction<string>) => {
       state.selectedEmployeeId = action.payload;
 
@@ -46,9 +49,11 @@ const appSlice = createSlice({
         inline: "center",
       });
     },
+
     setHighlightedEmployees: (state, action: PayloadAction<string[]>) => {
       state.highlightedEmployeeIds = action.payload;
     },
+
     unselectEmployee: (state) => {
       state.isBlackMaskShown = false;
       state.selectedEmployeeId = undefined;

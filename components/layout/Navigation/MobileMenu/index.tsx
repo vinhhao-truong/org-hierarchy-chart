@@ -8,7 +8,6 @@ import Drawer from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-
 import NextLink from "next/link";
 import menuList from "@/json/nav_list.json";
 import CloseIcon from "@mui/icons-material/CloseRounded";
@@ -18,6 +17,14 @@ const MobileMenu = () => {
 
   const theme = useTheme();
 
+  const openMenu = () => {
+    setIsMenuOpen(true);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -26,17 +33,19 @@ const MobileMenu = () => {
         },
       }}
     >
-      <div onClick={() => setIsMenuOpen(true)}>
+      {/* --MENU BTN-- */}
+      <Box onClick={openMenu}>
         <Stack alignItems="center">
           <MenuIcon />
           <Typography variant="caption" fontSize="10px">
             Menu
           </Typography>
         </Stack>
-      </div>
+      </Box>
+      {/* --INSIDE DRAWER-- */}
       <Drawer
         anchor="right"
-        onClose={() => setIsMenuOpen(false)}
+        onClose={closeMenu}
         open={isMenuOpen}
         PaperProps={{
           sx: {
@@ -55,18 +64,11 @@ const MobileMenu = () => {
           px={4}
           position="relative"
         >
-          <div
-            style={{
-              position: "absolute",
-              top: "1rem",
-              right: "1rem",
-            }}
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-          >
-            <CloseIcon />
-          </div>
+          <CloseIcon
+            sx={{ position: "absolute", top: "1rem", right: "1rem" }}
+            onClick={closeMenu}
+          />
+          {/* --NAV LINKS-- */}
           {menuList.map((nav, idx) => {
             return (
               <MuiLink

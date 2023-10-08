@@ -1,8 +1,8 @@
 "use client";
 
-import Employee from "@/interfaces/OrgStructure";
+import Employee from "@/interfaces/Employee";
 import ReactProps from "@/interfaces/ReactProps";
-import getLvlColor from "@/utils/get/getLvlColor";
+import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 import { flex } from "@/utils/get/getSxMUI";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -21,6 +21,7 @@ import ItemContainer from "./ItemContainer";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import Avatar from "@/interfaces/Avatar";
 import LabelAndAvatars from "./LabelAndAvatars";
+import useKeyPress from "@/hooks/useKeyPress";
 
 interface ChartItemProps extends ReactProps {
   employee: Employee;
@@ -28,8 +29,10 @@ interface ChartItemProps extends ReactProps {
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
   const { data: employeeList } = useGetOrgStructureQuery();
 
-  const { selectedEmployeeId, highlightedEmployeeIds } = useSelector(selectApp);
+  const dispatch = useDispatch();
 
+  //Indicate either the item is selected or highlighted
+  const { selectedEmployeeId, highlightedEmployeeIds } = useSelector(selectApp);
   const isSelected = selectedEmployeeId === employee.id;
   const isHighlighted = highlightedEmployeeIds.includes(employee.id);
 
@@ -43,12 +46,14 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
             name: thisEmp.fullName,
             url: thisEmp.avatar,
             onClickEvent: () => dispatch(selectEmployee(thisEmp.id)),
-            hoverColor: getLvlColor(thisEmp.level),
+            hoverColor: getPositionLvlColor(thisEmp.level),
           }))
       : [];
   };
 
-  const dispatch = useDispatch();
+  useKeyPress("Escape", () => {
+    dispatch(unselectEmployee());
+  });
 
   return (
     <ItemContainer
@@ -61,13 +66,13 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         }
       }}
     >
-      {/* AVATAR */}
+      {/* --AVATAR-- */}
       <MuiAvatar
         sx={{ width: 56, height: 56, mb: 1 }}
         src={employee.avatar}
         alt={`${employee.fullName}'s avatar`}
       />
-      {/* FLAG */}
+      {/* --FLAG-- */}
       <Box
         sx={{
           position: "absolute",
@@ -75,7 +80,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           right: 0,
           p: 0.2,
           px: 0.5,
-          backgroundColor: getLvlColor(employee.level),
+          backgroundColor: getPositionLvlColor(employee.level),
         }}
       >
         <Typography
@@ -85,7 +90,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           {employee.position}
         </Typography>
       </Box>
-      {/* NAME */}
+      {/* --FULL NAME-- */}
       <Typography
         variant="h6"
         component="h2"
@@ -96,7 +101,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
       >
         {employee.fullName}
       </Typography>
-
+      {/* --COLLAPSE/EXPAND PART-- */}
       <Collapse in={isSelected}>
         <Typography
           color="GrayText"
@@ -118,8 +123,8 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           />
         </Box>
       </Collapse>
-
-      <div
+      {/* --COLLAPSE/EXPAND BUTTON-- */}
+      <Box
         style={{
           alignSelf: "flex-end",
           display: "flex",
@@ -140,7 +145,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
         ) : (
           <ExpandIcon sx={{ fontSize: 18 }} />
         )}
-      </div>
+      </Box>
     </ItemContainer>
   );
 };

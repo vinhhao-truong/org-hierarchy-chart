@@ -7,9 +7,9 @@ const useScroll = (scrollUpEvent?: Function, scrollDownEvent?: Function) => {
 
   const handleScroll: EventListenerOrEventListenerObject = (e) => {
     if (y > window.scrollY) {
-      scrollUpEvent && scrollUpEvent();
+      scrollUpEvent && scrollUpEvent(); //handle scroll up event
     } else if (y < window.scrollY) {
-      scrollDownEvent && scrollDownEvent();
+      scrollDownEvent && scrollDownEvent(); //handle scroll down event
     }
     setY(window.scrollY);
   };
@@ -23,8 +23,7 @@ const useScroll = (scrollUpEvent?: Function, scrollDownEvent?: Function) => {
       window.addEventListener("scroll", handleScroll);
 
       return () => {
-        // return a cleanup function to unregister our function since it will run multiple times
-        window.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("scroll", handleScroll); //cleanup fn
       };
     }
   }, [y]);
