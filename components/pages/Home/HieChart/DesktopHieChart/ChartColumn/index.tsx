@@ -4,12 +4,14 @@ import Employee from "@/interfaces/Employee";
 import ReactProps from "@/interfaces/ReactProps";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
-import { flex } from "@/utils/get/getSxMUI";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import useTheme from "@mui/material/styles/useTheme";
+
 import React from "react";
 import ChartRow from "../ChartRow";
 import ChartItem from "../../ChartItem";
-import RowHead from "../ChartRow/RowHead";
 
 interface ChartColumnProps extends ReactProps {
   topEmployee: Employee;

@@ -2,12 +2,12 @@
 
 import Employee from "@/interfaces/Employee";
 import ReactProps from "@/interfaces/ReactProps";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import ChartItem from "../../ChartItem";
-import { flex } from "@/utils/get/getSxMUI";
-import getPositionLvlTitle from "@/utils/get/getPostionLvlTitle";
 import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 
 interface PositionWrapProps extends ReactProps {

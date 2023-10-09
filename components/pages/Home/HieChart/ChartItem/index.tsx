@@ -23,7 +23,7 @@ import Avatar from "@/interfaces/Avatar";
 import LabelAndAvatars from "./LabelAndAvatars";
 import useKeyPress from "@/hooks/useKeyPress";
 import PositionIcon from "@/components/common/PositionIcon";
-import { useTheme } from "@mui/material";
+import useTheme from "@mui/material/styles/useTheme";
 
 interface ChartItemProps extends ReactProps {
   employee: Employee;

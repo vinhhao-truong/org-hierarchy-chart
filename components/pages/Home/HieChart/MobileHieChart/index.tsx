@@ -1,6 +1,9 @@
 "use client";
 
-import { Box, Container, Grid, useTheme } from "@mui/material";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import useTheme from "@mui/material/styles/useTheme";
+
 import React from "react";
 import PositionWrap from "./PositionWrap";
 import { useGetOrgStructureQuery } from "@/redux/services/api";

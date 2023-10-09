@@ -3,17 +3,10 @@
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import useTheme from "@mui/material/styles/useTheme";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import React, { useState } from "react";
-import ChartRow from "./ChartRow";
-import RowHead from "./ChartRow/RowHead";
+import React from "react";
 import Image from "next/image";
 import { flex } from "@/utils/get/getSxMUI";
 import ChartColumn from "./ChartColumn";
-import { Collapse, Grid } from "@mui/material";
-import NextIcon from "@mui/icons-material/NavigateNextRounded";
-import BackIcon from "@mui/icons-material/NavigateBeforeRounded";
-import { blue } from "@mui/material/colors";
 
 const DesktopHieChart = () => {
   const {

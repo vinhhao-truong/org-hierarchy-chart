@@ -6,7 +6,7 @@ import { flex } from "@/utils/get/getSxMUI";
 import Paper from "@mui/material/Paper";
 import useTheme from "@mui/material/styles/useTheme";
 import { SxProps } from "@mui/material/styles";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 const ItemContainer: React.FC<
   {

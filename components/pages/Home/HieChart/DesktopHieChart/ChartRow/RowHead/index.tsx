@@ -2,7 +2,8 @@
 
 import ReactProps from "@/interfaces/ReactProps";
 import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
-import { Box, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import React from "react";
 import { flex } from "@/utils/get/getSxMUI";
 import getPositionLvlTitle from "@/utils/get/getPostionLvlTitle";

@@ -10,7 +10,7 @@ import { v4 } from "uuid";
 import CustomTxtField from "../CustomTxtField";
 import SearchIcon from "@mui/icons-material/SearchRounded";
 import CircularProgress from "@mui/material/CircularProgress";
-import { ListItem, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import PositionIcon from "@/components/common/PositionIcon";
 import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 

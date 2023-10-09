@@ -4,7 +4,8 @@ import AvatarGroup from "@/components/common/AvatarGroup";
 import Avatar from "@/interfaces/Avatar";
 import ReactProps from "@/interfaces/ReactProps";
 import { flex } from "@/utils/get/getSxMUI";
-import { useTheme } from "@mui/material";
+import useTheme from "@mui/material/styles/useTheme";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";

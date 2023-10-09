@@ -2,18 +2,13 @@
 
 import Employee from "@/interfaces/Employee";
 import ReactProps from "@/interfaces/ReactProps";
-
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-
-import React from "react";
-import ChartItem from "../../ChartItem";
-import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
-import Typography from "@mui/material/Typography";
-import ChartColumn from "../ChartColumn";
 import { flex } from "@/utils/get/getSxMUI";
-import RowHead from "./RowHead";
-import { Stack, useTheme } from "@mui/material";
+import React from "react";
+import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
+import ChartColumn from "../ChartColumn";
+import Stack from "@mui/material/Stack";
+import useTheme from "@mui/material/styles/useTheme";
 
 interface ChartRowProps extends ReactProps {
   rowList?: (Employee | undefined)[];
