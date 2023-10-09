@@ -7,6 +7,7 @@ import React from "react";
 import Image from "next/image";
 import { flex } from "@/utils/get/getSxMUI";
 import ChartColumn from "./ChartColumn";
+import LoadingAnimation from "../LoadingAnimation";
 
 const DesktopHieChart = () => {
   const {
@@ -20,24 +21,6 @@ const DesktopHieChart = () => {
   const theme = useTheme();
 
   const topLevel = employeeList?.filter(({ level }) => level === 1);
-
-  if (isListLoading) {
-    return (
-      <Box
-        sx={{
-          ...flex(),
-          position: "relative",
-        }}
-      >
-        <Image
-          alt="loading-animation"
-          src="/assets/img/walking-businessman.gif"
-          width={240}
-          height={180}
-        />
-      </Box>
-    );
-  }
 
   return (
     <Box

@@ -37,6 +37,11 @@ const ChartColumn: React.FC<ChartColumnProps> = ({
   const isBlackLineHead = colIdx === 0;
   const isBlackLineTail = colIdx === numberOfSameLvl - 1;
 
+  const levelBasedOfColor =
+    topEmployee.position === "Employee"
+      ? topEmployee.level
+      : topEmployee.level - 1;
+
   if (!topEmployee) {
     return <></>;
   }
@@ -60,7 +65,7 @@ const ChartColumn: React.FC<ChartColumnProps> = ({
               : isBlackLineTail
               ? "flex-start"
               : "center",
-            backgroundColor: getPositionLvlColor(topEmployee.level),
+            backgroundColor: getPositionLvlColor(levelBasedOfColor),
           }}
         />
       )}
@@ -70,7 +75,7 @@ const ChartColumn: React.FC<ChartColumnProps> = ({
           sx={{
             width: "2px",
             height: "2rem",
-            backgroundColor: getPositionLvlColor(topEmployee.level),
+            backgroundColor: getPositionLvlColor(levelBasedOfColor),
             position: "relative",
           }}
         />

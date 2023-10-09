@@ -34,7 +34,7 @@ const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
           height: "2rem",
           backgroundColor: getPositionLvlColor(
             // 1->2 2->3 3->3 get the color below
-            rowLvl && rowLvl < 3 ? rowLvl + 1 : rowLvl
+            rowLvl
           ),
           position: "relative",
         }}
