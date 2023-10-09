@@ -4,15 +4,20 @@ import { useGetOrgStructureQuery } from "@/redux/services/api";
 import useTheme from "@mui/material/styles/useTheme";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import React from "react";
+import React, { useState } from "react";
 import ChartRow from "./ChartRow";
 import RowHead from "./ChartRow/RowHead";
 import Image from "next/image";
 import { flex } from "@/utils/get/getSxMUI";
 import ChartColumn from "./ChartColumn";
-import { Grid } from "@mui/material";
+import { Collapse, Grid } from "@mui/material";
+import NextIcon from "@mui/icons-material/NavigateNextRounded";
+import BackIcon from "@mui/icons-material/NavigateBeforeRounded";
+import { blue } from "@mui/material/colors";
 
 const DesktopHieChart = () => {
+  const [currentChart, setCurrentChart] = useState<number>(0);
+
   const {
     data: employeeList,
     isLoading,
@@ -52,19 +57,58 @@ const DesktopHieChart = () => {
         },
       }}
     >
-      <Grid container>
+      <Box sx={{ ...flex("row", "center") }}>
         {topLevel?.map((employee, idx) => {
+          const isShown = idx === currentChart;
+          const isFirst = idx === 0;
+          const isLast = idx === topLevel.length - 1;
+          const isBetween = !isLast && !isFirst;
+
           return (
-            <Grid xs={12} item key={`hie-col-${idx}`} py={4}>
+            <Collapse
+              orientation="horizontal"
+              in={isShown}
+              key={`hie-col-${idx}`}
+              sx={{ py: 4, display: "relative" }}
+            >
+              <Box
+                sx={{
+                  ...flex(),
+                  gap: 2,
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                {(isLast || isBetween) && (
+                  <BackIcon
+                    fontSize="large"
+                    color="primary"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setCurrentChart(idx - 1);
+                    }}
+                  />
+                )}
+                {(isFirst || isBetween) && (
+                  <NextIcon
+                    fontSize="large"
+                    color="primary"
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setCurrentChart(idx + 1);
+                    }}
+                  />
+                )}
+              </Box>
               <ChartColumn
                 numberOfSameLvl={topLevel.length}
                 topEmployee={employee}
                 colIdx={idx}
               />
-            </Grid>
+            </Collapse>
           );
         })}
-      </Grid>
+      </Box>
     </Box>
   );
 };

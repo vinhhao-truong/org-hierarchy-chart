@@ -80,6 +80,7 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           fontSize: "128px",
           opacity: 0.12,
           color: getPositionLvlColor(employee.level),
+          zIndex: -1,
         }}
         level={employee.level}
       />
