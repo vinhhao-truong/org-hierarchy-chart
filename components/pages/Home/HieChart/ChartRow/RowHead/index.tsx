@@ -8,11 +8,14 @@ import { flex } from "@/utils/get/getSxMUI";
 import getPositionLvlTitle from "@/utils/get/getPostionLvlTitle";
 import PositionIcon from "@/components/common/PositionIcon";
 
-const RowHead: React.FC<{ rowLvl: number } & ReactProps> = ({ rowLvl }) => {
+const RowHead: React.FC<{ rowLvl: number } & ReactProps> = ({ rowLvl, sx }) => {
+  const thisXs = sx ? sx : {};
+
   return (
     <Box
       sx={{
         ...flex(),
+        width: "100%",
         gap: 1,
         backgroundColor: getPositionLvlColor(rowLvl),
         color: "white",

@@ -58,10 +58,11 @@ const SearchBar = () => {
             {...props}
             key={v4()}
           >
-            <Typography>{option.fullName}</Typography>
+            <Typography key={v4()}>{option.fullName}</Typography>
             <PositionIcon
               level={option.level}
               sx={{ color: getPositionLvlColor(option.level) }}
+              key={v4()}
             />
           </li>
         );

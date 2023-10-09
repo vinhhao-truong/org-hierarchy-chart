@@ -6,8 +6,10 @@ const getPositionLvlColor = (level?: number) => {
       return red[500];
     case 2:
       return yellow[800];
-    default:
+    case 3:
       return green[500];
+    default:
+      return "black";
   }
 };
 

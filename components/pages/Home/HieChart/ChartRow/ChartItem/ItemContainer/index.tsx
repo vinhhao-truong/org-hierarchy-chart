@@ -38,10 +38,13 @@ const ItemContainer: React.FC<
     <Box
       onClick={onClick}
       sx={{
-        py: 2,
         [theme.breakpoints.down("xl")]: {
           py: 1,
         },
+        position: "relative",
+        mx: 1,
+        my: 1,
+        height: "100%",
       }}
       id={id}
     >

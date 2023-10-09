@@ -9,6 +9,8 @@ import ChartRow from "./ChartRow";
 import RowHead from "./ChartRow/RowHead";
 import Image from "next/image";
 import { flex } from "@/utils/get/getSxMUI";
+import ChartColumn from "./ChartColumn";
+import { Grid } from "@mui/material";
 
 const HieChart = () => {
   const {
@@ -43,26 +45,42 @@ const HieChart = () => {
     );
   }
 
-  return (
-    <Stack
-      sx={{
-        gap: 4,
-        [theme.breakpoints.up("xl")]: {
-          gap: 16,
-        },
-      }}
-    >
-      {[topLevel, midLevel, lowerLevel].map((lvlData, idx) => {
-        const thisLvl = idx + 1; //indicate the row (top, mid, lower)
+  // return (
+  //   <Stack
+  //     sx={{
+  //       gap: 4,
+  //       [theme.breakpoints.up("xl")]: {
+  //         gap: 16,
+  //       },
+  //     }}
+  //   >
+  //     {[topLevel, midLevel, lowerLevel].map((lvlData, idx) => {
+  //       const thisLvl = idx + 1; //indicate the row (top, mid, lower)
 
+  //       return (
+  //         <Box key={`hie-char-row-${idx}`}>
+  //           {/* <RowHead rowLvl={thisLvl} /> */}
+  //           <ChartRow rowList={lvlData} rowLvl={thisLvl} />
+  //         </Box>
+  //       );
+  //     })}
+  //   </Stack>
+  // );
+
+  return (
+    <Grid container>
+      {topLevel?.map((employee, idx) => {
         return (
-          <Box key={`hie-char-row-${idx}`}>
-            <RowHead rowLvl={thisLvl} />
-            <ChartRow rowList={lvlData} rowLvl={thisLvl} />
-          </Box>
+          <Grid xs={12} item key={`hie-col-${idx}`} py={4}>
+            <ChartColumn
+              numberOfSameLvl={topLevel.length}
+              topEmployee={employee}
+              colIdx={idx}
+            />
+          </Grid>
         );
       })}
-    </Stack>
+    </Grid>
   );
 };
 
