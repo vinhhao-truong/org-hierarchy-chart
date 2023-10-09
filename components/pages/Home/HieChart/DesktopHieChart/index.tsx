@@ -16,8 +16,6 @@ import BackIcon from "@mui/icons-material/NavigateBeforeRounded";
 import { blue } from "@mui/material/colors";
 
 const DesktopHieChart = () => {
-  const [currentChart, setCurrentChart] = useState<number>(0);
-
   const {
     data: employeeList,
     isLoading,
@@ -57,58 +55,17 @@ const DesktopHieChart = () => {
         },
       }}
     >
-      <Box sx={{ ...flex("row", "center") }}>
-        {topLevel?.map((employee, idx) => {
-          const isShown = idx === currentChart;
-          const isFirst = idx === 0;
-          const isLast = idx === topLevel.length - 1;
-          const isBetween = !isLast && !isFirst;
-
-          return (
-            <Collapse
-              orientation="horizontal"
-              in={isShown}
-              key={`hie-col-${idx}`}
-              sx={{ py: 4, display: "relative" }}
-            >
-              <Box
-                sx={{
-                  ...flex(),
-                  gap: 2,
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                {(isLast || isBetween) && (
-                  <BackIcon
-                    fontSize="large"
-                    color="primary"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setCurrentChart(idx - 1);
-                    }}
-                  />
-                )}
-                {(isFirst || isBetween) && (
-                  <NextIcon
-                    fontSize="large"
-                    color="primary"
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setCurrentChart(idx + 1);
-                    }}
-                  />
-                )}
-              </Box>
-              <ChartColumn
-                numberOfSameLvl={topLevel.length}
-                topEmployee={employee}
-                colIdx={idx}
-              />
-            </Collapse>
-          );
-        })}
-      </Box>
+      {topLevel?.map((employee, idx) => {
+        return (
+          <Box key={`hie-col-${idx}`} sx={{ py: 4, display: "relative" }}>
+            <ChartColumn
+              numberOfSameLvl={topLevel.length}
+              topEmployee={employee}
+              colIdx={idx}
+            />
+          </Box>
+        );
+      })}
     </Box>
   );
 };
