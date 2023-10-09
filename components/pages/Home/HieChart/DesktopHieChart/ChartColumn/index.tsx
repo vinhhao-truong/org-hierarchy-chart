@@ -33,8 +33,6 @@ const ChartColumn: React.FC<ChartColumnProps> = ({
     ? topEmployee.subordinates.map((name) => employeeMap.get(name))
     : [];
 
-  const theme = useTheme();
-
   const isBlackLineInBetween = colIdx > 0 && colIdx < numberOfSameLvl - 1;
   const isBlackLineHead = colIdx === 0;
   const isBlackLineTail = colIdx === numberOfSameLvl - 1;
@@ -79,16 +77,6 @@ const ChartColumn: React.FC<ChartColumnProps> = ({
       )}
       <ChartItem employee={topEmployee} />
       <ChartRow rowList={subOrdinateList} rowLvl={topEmployee.level} />
-      {/* <Stack>
-        {subOrdinateList?.map((thisEmp, idx) => {
-          return (
-            <ChartColumn
-              key={`${topEmployee}-col-${idx}`}
-              topEmployee={thisEmp}
-            />
-          );
-        })}
-      </Stack> */}
     </Stack>
   );
 };

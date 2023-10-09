@@ -6,12 +6,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import React from "react";
 import { flex } from "@/utils/get/getSxMUI";
-import getPositionLvlTitle from "@/utils/get/getPostionLvlTitle";
+import getPositionLvlTitle from "@/utils/get/getPositionLvlTitle";
 import PositionIcon from "@/components/common/PositionIcon";
 
 const RowHead: React.FC<{ rowLvl: number } & ReactProps> = ({ rowLvl, sx }) => {
-  const thisXs = sx ? sx : {};
-
   return (
     <Box
       sx={{

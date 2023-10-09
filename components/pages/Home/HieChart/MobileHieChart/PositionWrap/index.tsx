@@ -39,7 +39,6 @@ const PositionWrap: React.FC<PositionWrapProps> = ({ topEmployee }) => {
       <ChartItem employee={topEmployee} />
       <Box
         sx={{
-          // ...flex("row", "flex-start", "flex-start"),
           px: 1,
           gap: 1,
           [theme.breakpoints.up("sm")]: {
