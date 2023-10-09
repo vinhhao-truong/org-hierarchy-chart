@@ -18,7 +18,7 @@ const DesktopHieChart = () => {
   const arrowSx = (unavailable: boolean): SxProps => {
     return {
       color: unavailable ? "#bdbdbd" : "#00000",
-      cursor: unavailable ? "none" : "pointer",
+      cursor: unavailable ? "auto" : "pointer",
     };
   };
 
@@ -37,12 +37,12 @@ const DesktopHieChart = () => {
       }}
     >
       {topLevel?.map((employee, idx) => {
-        const next = topLevel[idx + 1]?.id;
-        const prev = topLevel[idx - 1]?.id;
+        const nextId = topLevel[idx + 1]?.id;
+        const prevId = topLevel[idx - 1]?.id;
 
         return (
           <Box
-            id={`top-${employee.id}-section`}
+            id={`chart-${employee.id}-section`}
             key={`hie-col-${idx}`}
             sx={{
               ...flex("row", "space-between"),
@@ -50,6 +50,7 @@ const DesktopHieChart = () => {
               position: "relative",
             }}
           >
+            {/* --UP DOWN ARROW-- */}
             <Stack
               sx={{
                 position: "relative",
@@ -59,16 +60,21 @@ const DesktopHieChart = () => {
               }}
             >
               <UpIcon
-                onClick={() => prev && router.push(`/#top-${prev}-section`)}
-                sx={arrowSx(!prev)}
+                onClick={() =>
+                  prevId && router.push(`/#chart-${prevId}-section`)
+                }
+                sx={arrowSx(!prevId)}
                 fontSize="inherit"
               />
               <DownIcon
-                onClick={() => next && router.push(`/#top-${next}-section`)}
-                sx={arrowSx(!next)}
+                onClick={() =>
+                  nextId && router.push(`/#chart-${nextId}-section`)
+                }
+                sx={arrowSx(!nextId)}
                 fontSize="inherit"
               />
             </Stack>
+            {/* --MAIN CHART-- */}
             <ChartColumn
               numberOfSameLvl={topLevel.length}
               topEmployee={employee}

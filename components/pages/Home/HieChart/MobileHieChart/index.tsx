@@ -11,11 +11,7 @@ import { useGetOrgStructureQuery } from "@/redux/services/api";
 const MobileHieChart = () => {
   const theme = useTheme();
 
-  const {
-    data: employeeList,
-    isLoading,
-    isFetching,
-  } = useGetOrgStructureQuery();
+  const { data: employeeList } = useGetOrgStructureQuery();
 
   const topLevel = employeeList?.filter(({ level }) => level === 1);
 

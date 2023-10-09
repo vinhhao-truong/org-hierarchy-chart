@@ -16,6 +16,7 @@ import {
   selectEmployee,
   unselectEmployee,
   selectApp,
+  openEmployeeModal,
 } from "@/redux/services/appSlice";
 import ItemContainer from "./ItemContainer";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
@@ -24,6 +25,8 @@ import LabelAndAvatars from "./LabelAndAvatars";
 import useKeyPress from "@/hooks/useKeyPress";
 import PositionIcon from "@/components/common/PositionIcon";
 import useTheme from "@mui/material/styles/useTheme";
+import { useMediaQuery } from "@mui/material";
+import ItemModal from "./ItemModal";
 
 interface ChartItemProps extends ReactProps {
   employee: Employee;
@@ -34,6 +37,8 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
   const { data: employeeList } = useGetOrgStructureQuery();
 
   const dispatch = useDispatch();
+
+  const isDesktop = useMediaQuery(`(min-width:1200px)`);
 
   //Indicate either the item is selected or highlighted
   const { selectedEmployeeId, highlightedEmployeeIds } = useSelector(selectApp);
@@ -60,116 +65,124 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
   });
 
   return (
-    <ItemContainer
-      isSelected={isSelected}
-      isHighlighted={isHighlighted}
-      id={`employee-${employee.id}`}
-      onClick={() => {
-        if (!isSelected) {
-          dispatch(selectEmployee(employee.id));
-        }
-      }}
-    >
-      {/* --BG ICON-- */}
-      <PositionIcon
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "128px",
-          opacity: 0.12,
-          color: getPositionLvlColor(employee.level),
-          zIndex: -1,
-        }}
-        level={employee.level}
-      />
-      {/* --AVATAR-- */}
-      <MuiAvatar
-        sx={{ width: 56, height: 56, mb: 1 }}
-        src={employee.avatar}
-        alt={`${employee.fullName}'s avatar`}
-      />
-      {/* --FLAG-- */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          p: 0.2,
-          px: 0.5,
-          backgroundColor: getPositionLvlColor(employee.level),
+    <>
+      <ItemContainer
+        isSelected={isSelected}
+        isHighlighted={isHighlighted}
+        id={`employee-${employee.id}`}
+        onClick={() => {
+          if (!isSelected) {
+            if (isDesktop) {
+              dispatch(selectEmployee(employee.id));
+              return;
+            }
+            dispatch(openEmployeeModal(employee));
+          }
         }}
       >
-        <Typography
-          component="h2"
-          sx={{ fontSize: "13px", color: "white", fontWeight: 500 }}
-        >
-          {employee.position}
-        </Typography>
-      </Box>
-      {/* --FULL NAME-- */}
-      <Typography
-        variant="h6"
-        component="h2"
-        sx={{
-          fontWeight: 500,
-          textAlign: "center",
-        }}
-      >
-        {employee.fullName}
-      </Typography>
-      {/* --COLLAPSE/EXPAND PART-- */}
-      <Collapse in={isSelected}>
-        <Typography
-          color="GrayText"
-          variant="subtitle1"
-          fontStyle="italic"
-          fontSize={14}
-          mb={2}
+        {/* --BG ICON-- */}
+        <PositionIcon
           sx={{
-            [theme.breakpoints.down("sm")]: {
-              fontSize: "14px",
-            },
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontSize: "128px",
+            opacity: 0.12,
+            color: getPositionLvlColor(employee.level),
+            zIndex: -1,
+          }}
+          level={employee.level}
+        />
+        {/* --AVATAR-- */}
+        <MuiAvatar
+          sx={{ width: 56, height: 56, mb: 1 }}
+          src={employee.avatar}
+          alt={`${employee.fullName}'s avatar`}
+        />
+        {/* --FLAG-- */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            p: 0.2,
+            px: 0.5,
+            backgroundColor: getPositionLvlColor(employee.level),
           }}
         >
-          &ldquo;{employee.introduction}&rdquo;
-        </Typography>
-        <Box sx={{ ...flex("col", "flex-start", "flex-start"), gap: 1 }}>
-          <LabelAndAvatars
-            label="Supervisors"
-            avatarList={getAvatarListByLevel("supervisors")}
-          />
-          <LabelAndAvatars
-            label="Subordinates"
-            avatarList={getAvatarListByLevel("subordinates")}
-          />
+          <Typography
+            component="h2"
+            sx={{ fontSize: "13px", color: "white", fontWeight: 500 }}
+          >
+            {employee.position}
+          </Typography>
         </Box>
-      </Collapse>
-      {/* --COLLAPSE/EXPAND BUTTON-- */}
-      <Box
-        style={{
-          alignSelf: "flex-end",
-          display: "flex",
-          alignItems: "center",
-          marginTop: "0.5rem",
-          cursor: "pointer",
-          gap: "0.2rem",
-        }}
-        onClick={() => {
-          dispatch(unselectEmployee());
-        }}
-      >
-        <Typography fontSize={14}>
-          {isSelected ? "Collapse" : "Expand"}
+        {/* --FULL NAME-- */}
+        <Typography
+          variant="h6"
+          component="h2"
+          sx={{
+            fontWeight: 500,
+            textAlign: "center",
+          }}
+        >
+          {employee.fullName}
         </Typography>
-        {isSelected ? (
-          <CollapseIcon sx={{ fontSize: 18 }} />
-        ) : (
-          <ExpandIcon sx={{ fontSize: 18 }} />
-        )}
-      </Box>
-    </ItemContainer>
+        {/* --COLLAPSE/EXPAND PART-- */}
+        <Collapse in={isSelected}>
+          <Typography
+            color="GrayText"
+            variant="subtitle1"
+            fontStyle="italic"
+            fontSize={14}
+            mb={2}
+            sx={{
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "14px",
+              },
+            }}
+          >
+            &ldquo;{employee.introduction}&rdquo;
+          </Typography>
+          <Box sx={{ ...flex("col", "flex-start", "flex-start"), gap: 1 }}>
+            <LabelAndAvatars
+              label="Supervisors"
+              avatarList={getAvatarListByLevel("supervisors")}
+            />
+            <LabelAndAvatars
+              label="Subordinates"
+              avatarList={getAvatarListByLevel("subordinates")}
+            />
+          </Box>
+        </Collapse>
+        {/* --COLLAPSE/EXPAND BUTTON-- */}
+        <Box
+          style={{
+            alignSelf: "flex-end",
+            display: "flex",
+            alignItems: "center",
+            marginTop: "0.5rem",
+            cursor: "pointer",
+            gap: "0.2rem",
+          }}
+          onClick={() => {
+            dispatch(unselectEmployee());
+          }}
+        >
+          <Typography fontSize={14}>
+            {isSelected ? "Collapse" : "Expand"}
+          </Typography>
+          {isSelected ? (
+            <CollapseIcon sx={{ fontSize: 18 }} />
+          ) : (
+            <ExpandIcon sx={{ fontSize: 18 }} />
+          )}
+        </Box>
+      </ItemContainer>
+      {/* --MODAL FOR MOBILE-- */}
+      {!isDesktop && <ItemModal />}
+    </>
   );
 };
 

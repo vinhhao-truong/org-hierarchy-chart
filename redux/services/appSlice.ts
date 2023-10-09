@@ -1,3 +1,4 @@
+import Employee from "@/interfaces/Employee";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
@@ -6,6 +7,7 @@ interface InitialState {
   isNotFoundPage: boolean;
   selectedEmployeeId?: string;
   highlightedEmployeeIds: string[];
+  employeeModalData?: Employee;
 }
 
 const initialState: InitialState = {
@@ -49,7 +51,12 @@ const appSlice = createSlice({
         inline: "center",
       });
     },
-
+    openEmployeeModal: (state, action: PayloadAction<Employee>) => {
+      state.employeeModalData = action.payload;
+    },
+    closeEmployeeModal: (state) => {
+      state.employeeModalData = undefined;
+    },
     setHighlightedEmployees: (state, action: PayloadAction<string[]>) => {
       state.highlightedEmployeeIds = action.payload;
     },
@@ -69,6 +76,8 @@ export const {
   selectEmployee,
   unselectEmployee,
   setHighlightedEmployees,
+  openEmployeeModal,
+  closeEmployeeModal,
   setNotFound,
 } = appSlice.actions;
 

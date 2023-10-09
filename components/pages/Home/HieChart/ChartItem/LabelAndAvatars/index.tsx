@@ -26,7 +26,7 @@ const LabelAndAvatars: React.FC<LabelAndAvatarsProps> = ({
       sx={{
         ...flex("row", "flex-start"),
         gap: 2,
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("lg")]: {
           gap: 0.5,
           flexDirection: "column",
         },

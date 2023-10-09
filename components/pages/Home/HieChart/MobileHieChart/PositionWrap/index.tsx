@@ -50,7 +50,7 @@ const PositionWrap: React.FC<PositionWrapProps> = ({ topEmployee }) => {
             gap: 2,
           },
           flexWrap: "wrap",
-          borderLeft: 2,
+          borderLeft: 4,
           borderLeftColor: getPositionLvlColor(topEmployee.level),
         }}
       >
