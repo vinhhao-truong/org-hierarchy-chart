@@ -7,13 +7,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 import React from "react";
-import ChartItem from "./ChartItem";
+import ChartItem from "../../ChartItem";
 import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 import Typography from "@mui/material/Typography";
 import ChartColumn from "../ChartColumn";
 import { flex } from "@/utils/get/getSxMUI";
 import RowHead from "./RowHead";
-import { Stack } from "@mui/material";
+import { Stack, useTheme } from "@mui/material";
 
 interface ChartRowProps extends ReactProps {
   rowList?: (Employee | undefined)[];
@@ -22,9 +22,16 @@ interface ChartRowProps extends ReactProps {
 
 const ChartRow: React.FC<ChartRowProps> = ({ rowList, rowLvl }) => {
   const patternColor = getPositionLvlColor(rowLvl);
+  const theme = useTheme();
 
   return rowList && rowList.length > 0 ? (
-    <Stack gap={0} alignItems="center" sx={{ position: "relative" }}>
+    <Stack
+      gap={0}
+      sx={{
+        position: "relative",
+        alignItems: "center",
+      }}
+    >
       {/* --HALF VERTICAL LINE BELOW EACH NODE-- */}
       <Box
         sx={{

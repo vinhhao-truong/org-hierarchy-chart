@@ -23,11 +23,14 @@ import Avatar from "@/interfaces/Avatar";
 import LabelAndAvatars from "./LabelAndAvatars";
 import useKeyPress from "@/hooks/useKeyPress";
 import PositionIcon from "@/components/common/PositionIcon";
+import { useTheme } from "@mui/material";
 
 interface ChartItemProps extends ReactProps {
   employee: Employee;
 }
 const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
+  const theme = useTheme();
+
   const { data: employeeList } = useGetOrgStructureQuery();
 
   const dispatch = useDispatch();
@@ -123,6 +126,11 @@ const ChartItem: React.FC<ChartItemProps> = ({ employee }) => {
           fontStyle="italic"
           fontSize={14}
           mb={2}
+          sx={{
+            [theme.breakpoints.down("sm")]: {
+              fontSize: "14px",
+            },
+          }}
         >
           &ldquo;{employee.introduction}&rdquo;
         </Typography>

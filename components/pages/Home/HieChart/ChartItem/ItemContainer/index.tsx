@@ -36,19 +36,21 @@ const ItemContainer: React.FC<
 
   return (
     <Box
-      onClick={onClick}
       sx={{
         [theme.breakpoints.down("xl")]: {
           py: 1,
         },
+        [theme.breakpoints.up("lg")]: {
+          mx: 1,
+        },
         position: "relative",
-        mx: 1,
         my: 1,
         height: "100%",
       }}
       id={id}
     >
       <Paper
+        onClick={onClick}
         sx={{
           ...flex("col", "flex-start", "center"),
           ...selectedAnimation,
@@ -62,8 +64,12 @@ const ItemContainer: React.FC<
           overflow: "hidden",
           backgroundColor: "white",
           cursor: isSelected ? "auto" : "pointer",
+          maxWidth: "100px",
+          [theme.breakpoints.up("sm")]: {
+            maxWidth: "160px",
+          },
           [theme.breakpoints.up("lg")]: {
-            width: "220px",
+            maxWidth: "220px",
           },
           "&:hover": {
             boxShadow: 4,

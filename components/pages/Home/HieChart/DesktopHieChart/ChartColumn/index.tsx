@@ -5,10 +5,10 @@ import ReactProps from "@/interfaces/ReactProps";
 import { useGetOrgStructureQuery } from "@/redux/services/api";
 import getPositionLvlColor from "@/utils/get/getPositionLvlColor";
 import { flex } from "@/utils/get/getSxMUI";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
 import ChartRow from "../ChartRow";
-import ChartItem from "../ChartRow/ChartItem";
+import ChartItem from "../../ChartItem";
 import RowHead from "../ChartRow/RowHead";
 
 interface ChartColumnProps extends ReactProps {
@@ -31,16 +31,24 @@ const ChartColumn: React.FC<ChartColumnProps> = ({
     ? topEmployee.subordinates.map((name) => employeeMap.get(name))
     : [];
 
-  if (!topEmployee) {
-    return <></>;
-  }
+  const theme = useTheme();
 
   const isBlackLineInBetween = colIdx > 0 && colIdx < numberOfSameLvl - 1;
   const isBlackLineHead = colIdx === 0;
   const isBlackLineTail = colIdx === numberOfSameLvl - 1;
 
+  if (!topEmployee) {
+    return <></>;
+  }
+
   return (
-    <Stack gap={0} alignItems="center" sx={{ position: "relative" }}>
+    <Stack
+      gap={0}
+      sx={{
+        position: "relative",
+        alignItems: "center",
+      }}
+    >
       {/* --HORIZONTAL LINE ABOVE EACH LEVEL EXCEPT TOP-- */}
       {topEmployee.level > 1 && numberOfSameLvl > 1 && (
         <Box

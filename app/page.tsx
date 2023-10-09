@@ -12,6 +12,9 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(setNotFound(false)); //let the client-side detect that the page is available
+    if (window !== undefined) {
+      console.log(window.innerWidth);
+    }
   }, []);
 
   return (

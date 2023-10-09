@@ -10,5 +10,7 @@ body {
 }
 
 .no-scrolling {
-  overflow-y: hidden !important;
+  @media (min-width: 1200px) {
+    overflow-y: hidden !important;
+  }
 }
