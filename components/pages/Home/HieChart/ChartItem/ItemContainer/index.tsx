@@ -61,6 +61,7 @@ const ItemContainer: React.FC<
           borderColor: isHighlighted && !isSelected ? "#000000" : "transparent",
           position: "relative",
           p: 2.5,
+          pt: 4,
           overflow: "hidden",
           backgroundColor: "white",
           cursor: isSelected ? "auto" : "pointer",
